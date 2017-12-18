@@ -1,0 +1,28 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: iam-users
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+
+resources:
+  Resources:
+    tomAdmin:
+      Type: "AWS::IAM::User"
+      Properties:
+        Groups:
+          - FullAdmins
+        UserName: tom-admin
+    tom:
+      Type: "AWS::IAM::User"
+      Properties:
+        Groups:
+          - Admins
+          - Users
+        UserName: tom
