@@ -7,6 +7,10 @@
 # The `service` block is the name of the service
 service: iam-users
 
+# NOTE: Password policy cannot be set with CFN resources. One day maybe
+# investigate the following:
+# https://github.com/widdix/aws-cf-templates/blob/master/security/account-password-policy.yaml
+
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
