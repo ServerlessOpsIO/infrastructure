@@ -28,3 +28,18 @@ Resources:
         - arn:aws:iam::aws:policy/IAMUserChangePassword
         - arn:aws:iam::aws:policy/IAMUserSSHKeys
 
+  DevUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevUsers
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevUsersPolicyArn
+
+  DevAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevAdmins
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
+
+

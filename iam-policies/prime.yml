@@ -1,0 +1,44 @@
+Resources:
+  OrganizationAccountAccessServerlessOpsDevUsersPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev-Users
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessUserRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDevAdminsPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev-Admins
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessAdminRole"
+          }
+        ]
+      }
+
+Outputs:
+  OrganizationAccountAccessServerlessOpsDevUsersPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDevUsersPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevUsersPolicyArn
+  OrganizationAccountAccessServerlessOpsDevAdminPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDevAdminsPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
