@@ -1,4 +1,19 @@
 Resources:
+  OrganizationAccountAccessServerlessOpsDevPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessRole"
+          }
+        ]
+      }
+
   OrganizationAccountAccessServerlessOpsDevUsersPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
