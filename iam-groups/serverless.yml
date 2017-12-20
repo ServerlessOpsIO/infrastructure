@@ -13,33 +13,4 @@ provider:
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
 
-resources:
-  Resources:
-    FullAdmins:
-      Type: "AWS::IAM::Group"
-      Properties:
-        GroupName: FullAdmins
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/AdministratorAccess
-    Admins:
-      Type: "AWS::IAM::Group"
-      Properties:
-        GroupName: Admins
-        # These managed policies may grant permissions to other services in
-        # addition to the on es names.
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess
-          - arn:aws:iam::aws:policy/AmazonS3FullAccess
-          - arn:aws:iam::aws:policy/IAMReadOnlyAccess
-          - arn:aws:iam::aws:policy/AWSCloudFormationReadOnlyAccess
-          - arn:aws:iam::aws:policy/CloudWatchFullAccess
-          - arn:aws:iam::aws:policy/AWSCloudTrailFullAccess
-          - arn:aws:iam::aws:policy/job-function/Billing
-    Users:
-      Type: "AWS::IAM::Group"
-      Properties:
-        GroupName: Users
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials
-          - arn:aws:iam::aws:policy/IAMUserChangePassword
-          - arn:aws:iam::aws:policy/IAMUserSSHKeys
+resources: ${file(./${self:provider.stage}.yml)}

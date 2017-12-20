@@ -20,18 +20,4 @@ provider:
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
 
-resources:
-  Resources:
-    tomAdmin:
-      Type: "AWS::IAM::User"
-      Properties:
-        Groups:
-          - FullAdmins
-        UserName: tom-admin
-    tom:
-      Type: "AWS::IAM::User"
-      Properties:
-        Groups:
-          - Admins
-          - Users
-        UserName: tom
+resources: ${file(./${self:provider.stage}.yml)}

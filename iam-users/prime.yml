@@ -1,0 +1,15 @@
+Resources:
+  tomAdmin:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - FullAdmins
+      UserName: tom-admin
+  tom:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Admins
+        - Users
+      UserName: tom
+
