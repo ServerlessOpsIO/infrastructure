@@ -3,15 +3,15 @@ Resources:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - FullAdmins
+        - PrimeAdmins
         - DevAdmins
       UserName: tom-admin
   tom:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - Admins
-        - Users
+        - PrimePowerUsers
+        - PrimeUsers
         - DevUsers
       UserName: tom
 

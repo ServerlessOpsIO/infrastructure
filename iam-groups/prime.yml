@@ -1,14 +1,14 @@
 Resources:
-  FullAdmins:
+  PrimeAdmins:
     Type: "AWS::IAM::Group"
     Properties:
-      GroupName: FullAdmins
+      GroupName: PrimeAdmins
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
-  Admins:
+  PrimePowerUsers:
     Type: "AWS::IAM::Group"
     Properties:
-      GroupName: Admins
+      GroupName: PrimePowerUsers
       # These managed policies may grant permissions to other services in
       # addition to the on es names.
       ManagedPolicyArns:
@@ -19,10 +19,10 @@ Resources:
         - arn:aws:iam::aws:policy/CloudWatchFullAccess
         - arn:aws:iam::aws:policy/AWSCloudTrailFullAccess
         - arn:aws:iam::aws:policy/job-function/Billing
-  Users:
+  PrimeUsers:
     Type: "AWS::IAM::Group"
     Properties:
-      GroupName: Users
+      GroupName: PrimeUsers
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials
         - arn:aws:iam::aws:policy/IAMUserChangePassword
