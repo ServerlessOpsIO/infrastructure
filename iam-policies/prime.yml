@@ -45,6 +45,12 @@ Resources:
       }
 
 Outputs:
+  OrganizationAccountAccessServerlessOpsDevPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDevPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevPolicyArn
   OrganizationAccountAccessServerlessOpsDevUsersPolicyArn:
     Description: Policy ARN
     Value:
