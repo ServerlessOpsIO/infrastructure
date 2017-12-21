@@ -4,6 +4,7 @@ Resources:
     Properties:
       Groups:
         - FullAdmins
+        - DevAdmins
       UserName: tom-admin
   tom:
     Type: "AWS::IAM::User"
@@ -11,5 +12,6 @@ Resources:
       Groups:
         - Admins
         - Users
+        - DevUsers
       UserName: tom
 
