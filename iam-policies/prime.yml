@@ -1,4 +1,20 @@
 Resources:
+  # You still need the ability to carry out the resource actions in the template.
+  CloudFormationFullAccess:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: CloudFormationFullAccess
+      PolicyDocument: {
+        "Version":"2012-10-17",
+        "Statement":[
+          {
+            "Effect":"Allow",
+            "Action": "cloudformation:*",
+            "Resource":"*"
+          }
+        ]
+      }
+
   OrganizationAccountAccessServerlessOpsDevPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
@@ -45,6 +61,12 @@ Resources:
       }
 
 Outputs:
+  CloudFormationFullAccessArn:
+    Description: Policy ARN
+    Value:
+      Ref: CloudFormationFullAccess
+    Export:
+      Name: ${self:service}-${self:provider.stage}-CloudFormationFullAccessArn
   OrganizationAccountAccessServerlessOpsDevPolicyArn:
     Description: Policy ARN
     Value:

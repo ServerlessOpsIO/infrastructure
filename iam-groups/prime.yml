@@ -19,6 +19,7 @@ Resources:
         - arn:aws:iam::aws:policy/CloudWatchEventsFullAccess
         - arn:aws:iam::aws:policy/AWSCloudTrailFullAccess
         - arn:aws:iam::aws:policy/job-function/Billing
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-CloudFormationFullAccessArn
   PrimeUsers:
     Type: "AWS::IAM::Group"
     Properties:
