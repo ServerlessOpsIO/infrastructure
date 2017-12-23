@@ -27,7 +27,7 @@ Resources:
   ServerlessOpsWww:
     Type: "AWS::Route53::RecordSet"
     Properties:
-      Comment: "Apex Records"
+      Comment: "Website"
       HostedZoneId:
         Ref: ServerlessOps
       Name: "www.serverlessops.io."
