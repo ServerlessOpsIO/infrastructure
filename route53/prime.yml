@@ -1,0 +1,25 @@
+Resources:
+  ServerlessOps:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "serverlessops.io"
+      HostedZoneConfig:
+        Comment: ServerlessOps
+
+  ServerlessOpsRR:
+    Type: "AWS::Route53::RecordSetGroup"
+    Properties:
+      Comment: "Apex Records"
+      HostedZoneId:
+        Ref: ServerlessOps
+      RecordSets:
+        - Name: "serverlessops.io."
+          Type: "MX"
+          TTL: 300
+          ResourceRecords:
+            - 1 aspmx.l.google.com
+            - 5 alt1.aspmx.l.google.com
+            - 5 alt2.aspmx.l.google.com
+            - 10 alt3.aspmx.l.google.com
+            - 10 alt4.aspmx.l.google.com
+            - 15 n2235kmtje5chj5uz63i3sluem7gtehtp5dlmladr2nfntojbqpq.mx-verification.google.com.
