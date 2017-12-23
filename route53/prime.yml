@@ -35,3 +35,16 @@ Resources:
       TTL: 3600
       ResourceRecords:
         - 277116.group16.sites.hubspot.net
+
+Outputs:
+  ServerlessOpsNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOps
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsNameServers
+
