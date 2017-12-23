@@ -23,3 +23,15 @@ Resources:
             - 10 alt3.aspmx.l.google.com
             - 10 alt4.aspmx.l.google.com
             - 15 n2235kmtje5chj5uz63i3sluem7gtehtp5dlmladr2nfntojbqpq.mx-verification.google.com.
+
+  ServerlessOpsWww:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Apex Records"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "www.serverlessops.io."
+      Type: "CNAME"
+      TTL: 3600
+      ResourceRecords:
+        - 277116.group16.sites.hubspot.net
