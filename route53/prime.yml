@@ -36,6 +36,58 @@ Resources:
       ResourceRecords:
         - 277116.group16.sites.hubspot.net
 
+  ServerlessOpsCom:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "serverless-ops.com"
+      HostedZoneConfig:
+        Comment: Serverless-Ops.com
+
+  ServerlessOpsComWww:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Website"
+      HostedZoneId:
+        Ref: ServerlessOpsCom
+      Name: "www.serverless-ops.com."
+      Type: "CNAME"
+      TTL: 3600
+      ResourceRecords:
+        - 277116.group16.sites.hubspot.net
+
+  ServerlessDevOpsCom:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "serverless-devops.com"
+      HostedZoneConfig:
+        Comment: Serverless-DevOps.com
+
+  ServerlessDevOpsComWww:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Website"
+      HostedZoneId:
+        Ref: ServerlessDevOpsCom
+      Name: "www.serverless-devops.com."
+      Type: "CNAME"
+      TTL: 3600
+      ResourceRecords:
+        - 277116.group16.sites.hubspot.net
+
+  ServerlessZomboCom:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "serverlesszombo.com"
+      HostedZoneConfig:
+        Comment: ServerlessZombo.com
+
+  ServerlessDashZomboCom:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "serverless-zombo.com"
+      HostedZoneConfig:
+        Comment: "This... is... serverless. Welcome. This is serverless; welcome ... to serverless. You can do anything with serverless. Anything at all. The only limit is yourself. Welcome... to serverless"
+
 Outputs:
   ServerlessOpsNameServers:
     Description: Hosted zone name servers
@@ -47,4 +99,48 @@ Outputs:
           - NameServers
     Export:
       Name: ${self:service}-${self:provider.stage}-ServerlessOpsNameServers
+
+  ServerlessOpsComNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOpsCom
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsComNameServers
+
+  ServerlessDevOpsComNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessDevOpsCom
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessDevOpsComNameServers
+
+  ServerlessZomboComNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessZomboCom
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessZomboComNameServers
+
+  ServerlessDashZomboComNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessDashZomboCom
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessDashZomboComNameServers
 
