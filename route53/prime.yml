@@ -41,6 +41,21 @@ Resources:
       ResourceRecords:
         - 277116.group16.sites.hubspot.net
 
+  ServerlessOpsDev:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Dev domain delegation"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "dev.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-1418.awsdns-49.org
+        - ns-953.awsdns-55.net
+        - ns-1850.awsdns-39.co.uk
+        - ns-64.awsdns-08.com
+
   ServerlessOpsDomainKeyHs1:
     Type: "AWS::Route53::RecordSet"
     Properties:
