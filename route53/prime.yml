@@ -36,6 +36,43 @@ Resources:
       ResourceRecords:
         - 277116.group16.sites.hubspot.net
 
+  ServerlessOpsDomainKeyHs1:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "HubSpot domain key"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "hs1._domainkey.serverlessops.io."
+      Type: "CNAME"
+      TTL: 3600
+      ResourceRecords:
+        - serverlessops-io.hs01a.dkim.hubspotemail.net
+
+  ServerlessOpsDomainKeyHs2:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "HubSpot domain key"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "hs2._domainkey.serverlessops.io."
+      Type: "CNAME"
+      TTL: 3600
+      ResourceRecords:
+        - serverlessops-io.hs01b.dkim.hubspotemail.net
+
+  ServerlessOpsDomainKeySmtpapi:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "HubSpot domain key"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "smtpapi._domainkey.serverlessops.io."
+      Type: "TXT"
+      TTL: 3600
+      # Those escape secquences are necessary.
+      ResourceRecords:
+        - "\"k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPtW5iwpXVPiH5FzJ7Nrl8USzuY9zqqzjE0D1r04xDN6qwziDnmgcFNNfMewVKN2D1O+2J9N14hRprzByFwfQW76yojh54Xu3uSbQ3JP0A7k8o8GutRF8zbFUA8n0ZH2y0cIEjMliXY4W4LwPA7m4q0ObmvSjhd63O9d8z1XkUBwIDAQAB\""
+
   ServerlessOpsCom:
     Type: "AWS::Route53::HostedZone"
     Properties:
