@@ -43,4 +43,18 @@ Resources:
       ManagedPolicyArns:
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
 
+  ProdUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdUsers
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdUsersPolicyArn
+
+  ProdAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdAdmins
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdAdminPolicyArn
+
 

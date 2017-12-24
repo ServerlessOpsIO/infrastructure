@@ -60,6 +60,51 @@ Resources:
         ]
       }
 
+  OrganizationAccountAccessServerlessOpsProdPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsProdUsersPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod-Users
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessUserRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsProdAdminsPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod-Admins
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessAdminRole"
+          }
+        ]
+      }
+
 Outputs:
   CloudFormationFullAccessArn:
     Description: Policy ARN
@@ -67,6 +112,7 @@ Outputs:
       Ref: CloudFormationFullAccess
     Export:
       Name: ${self:service}-${self:provider.stage}-CloudFormationFullAccessArn
+
   OrganizationAccountAccessServerlessOpsDevPolicyArn:
     Description: Policy ARN
     Value:
@@ -85,3 +131,22 @@ Outputs:
       Ref: OrganizationAccountAccessServerlessOpsDevAdminsPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
+
+  OrganizationAccountAccessServerlessOpsProdPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsProdPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdPolicyArn
+  OrganizationAccountAccessServerlessOpsProdUsersPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsProdUsersPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdUsersPolicyArn
+  OrganizationAccountAccessServerlessOpsProdAdminPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsProdAdminsPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdAdminPolicyArn
