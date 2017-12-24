@@ -23,6 +23,11 @@ Resources:
             - 10 alt3.aspmx.l.google.com
             - 10 alt4.aspmx.l.google.com
             - 15 n2235kmtje5chj5uz63i3sluem7gtehtp5dlmladr2nfntojbqpq.mx-verification.google.com.
+        - Name: "serverlessops.io"
+          Type: "TXT"
+          TTL: 14400
+          ResourceRecords:
+            - "\"v=spf1 include:_spf.google.com include:277116.spf08.hubspotemail.net ~all\""
 
   ServerlessOpsWww:
     Type: "AWS::Route53::RecordSet"
