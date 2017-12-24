@@ -1,0 +1,69 @@
+service: billing
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+
+custom:
+  billingAlertSubscriptions:
+    - Endpoint: "admin+aws-billing-${self:provider.stage}@serverlessops.io"
+      Protocol: "email"
+
+resources:
+  Resources:
+    BillingAlarmSnsTopic:
+      Type: "AWS::SNS::Topic"
+      Properties:
+        DisplayName: BillingAlarms
+        Subscription: ${self:custom.billingAlertSubscriptions}
+
+    BillingAlarm10:
+      Type: "AWS::CloudWatch::Alarm"
+      Properties:
+        ComparisonOperator: "GreaterThanOrEqualToThreshold"
+        EvaluationPeriods: 1
+        Period: 21600
+        Namespace: "AWS/Billing"
+        MetricName: "EstimatedCharges"
+        Dimensions:
+          - Name: "Currency"
+            Value: "USD"
+        Statistic: "Maximum"
+        Threshold: 10
+        AlarmActions:
+          - Ref: BillingAlarmSnsTopic
+
+    BillingAlarm25:
+      Type: "AWS::CloudWatch::Alarm"
+      Properties:
+        ComparisonOperator: "GreaterThanOrEqualToThreshold"
+        EvaluationPeriods: 1
+        Period: 21600
+        Namespace: "AWS/Billing"
+        MetricName: "EstimatedCharges"
+        Dimensions:
+          - Name: "Currency"
+            Value: "USD"
+        Statistic: "Maximum"
+        Threshold: 25
+        AlarmActions:
+          - Ref: BillingAlarmSnsTopic
+
+    BillingAlarm50:
+      Type: "AWS::CloudWatch::Alarm"
+      Properties:
+        ComparisonOperator: "GreaterThanOrEqualToThreshold"
+        EvaluationPeriods: 1
+        Period: 21600
+        Namespace: "AWS/Billing"
+        MetricName: "EstimatedCharges"
+        Dimensions:
+          - Name: "Currency"
+            Value: "USD"
+        Statistic: "Maximum"
+        Threshold: 50
+        AlarmActions:
+          - Ref: BillingAlarmSnsTopic
+
