@@ -25,8 +25,13 @@ resources:
           "Statement": [
             {
               "Effect": "Allow",
+              "Action": "s3:ListBuckets",
+              "Resource": "arn:aws:s3:::*"
+            },
+            {
+              "Effect": "Allow",
               "Action": "s3:*",
-              "Resource": "arn:aws:s3:::serverlessops-${self:service}-${self:provider.stage}"
+              "Resource": "arn:aws:s3:::serverlessops-${self:service}-${self:provider.stage}/*"
             }
           ]
         }
