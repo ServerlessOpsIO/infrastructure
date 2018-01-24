@@ -14,7 +14,6 @@ resources:
       Properties:
         # Overriding this for ease by outsiders
         BucketName: "serverlessops-${self:service}-${self:provider.stage}"
-        AccessControl: "PublicRead"
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: error.html
