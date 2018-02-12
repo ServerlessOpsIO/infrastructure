@@ -67,3 +67,62 @@ resources:
         AlarmActions:
           - Ref: BillingAlarmSnsTopic
 
+    BillingS3Bucket:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        BucketName:
+          Fn::Join:
+            - "-"
+            - - Ref: "AWS::AccountId"
+              - "${self:service}"
+              - "reports"
+              - "${self:provider.stage}"
+        AccessControl: "Private"
+
+    BillingS3BucketPolicy:
+      Type: "AWS::S3::BucketPolicy"
+      Properties:
+        Bucket:
+          Ref: BillingS3Bucket
+        PolicyDocument: {
+          "Version": "2008-10-17",
+          "Id": "Policy1335892530063",
+          "Statement": [
+            {
+              "Sid": "Stmt1335892150622",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::386209384616:root"
+              },
+              "Action": [
+                "s3:GetBucketAcl",
+                "s3:GetBucketPolicy"
+              ],
+              "Resource": { "Fn::GetAtt": ["BillingS3Bucket", "Arn"] }
+            },
+            {
+              "Sid": "Stmt1335892526596",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::386209384616:root"
+              },
+              "Action": [
+                "s3:PutObject"
+              ],
+              "Resource": { "Fn::Join": ["/", [{ "Fn::GetAtt": ["BillingS3Bucket", "Arn"] }, "*"]] }
+            }
+          ]
+        }
+
+  Outputs:
+    BillingS3BucketName:
+      Description: "Name of bucket where billing reports are delivered"
+      Value:
+        Ref: BillingS3Bucket
+      Export:
+        Name:
+          Fn::Join:
+            - "-"
+            - - Ref: "AWS::StackName"
+              - BillingS3BucketName
+
