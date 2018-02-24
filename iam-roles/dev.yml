@@ -21,6 +21,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
+  # FIXME: Need to get finer grained with the IAM management permissions. Doing this for now.
   OrganizationAccountAccessUserRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -40,6 +41,7 @@ Resources:
       }
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/PowerUserAccess
+        - arn:aws:iam::aws:policy/IAMFullAccess
 
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
