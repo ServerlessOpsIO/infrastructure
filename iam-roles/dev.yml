@@ -40,8 +40,16 @@ Resources:
         ]
       }
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/PowerUserAccess
-        - arn:aws:iam::aws:policy/IAMFullAccess
+        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+      Policies:
+        - PolicyName: "CloudFormationFullAccess"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "CloudFormation:*"
+                Resource: "*"
 
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
