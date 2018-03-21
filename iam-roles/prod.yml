@@ -39,7 +39,7 @@ Resources:
         ]
       }
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/PowerUserAccess
+        - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
 
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
