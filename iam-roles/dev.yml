@@ -43,6 +43,21 @@ Resources:
         - arn:aws:iam::aws:policy/AWSLambdaFullAccess
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
       Policies:
+        - PolicyName: "IamRoleManage"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "iam:AttachRolePolicy"
+                  - "iam:CreatePolicy"
+                  - "iam:CreateRole"
+                  - "iam:DeleteRole"
+                  - "iam:DeleteRolePolicy"
+                  - "iam:PassRole"
+                  - "iam:PutRolePolicy"
+                Resource: "*"
+
         - PolicyName: "CloudFormationFullAccess"
           PolicyDocument:
             Version: "2012-10-17"
