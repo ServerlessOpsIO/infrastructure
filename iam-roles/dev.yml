@@ -43,6 +43,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSLambdaFullAccess
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
         - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
+        - arn:aws:iam::aws:policy/IAMReadOnlyAccess
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
