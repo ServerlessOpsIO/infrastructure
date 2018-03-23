@@ -6,6 +6,7 @@ Resources:
         - PrimeAdmins
         - DevAdmins
         - ProdAdmins
+        - TrainingAdmins
       UserName: tom-admin
   tom:
     Type: "AWS::IAM::User"
