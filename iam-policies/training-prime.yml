@@ -15,17 +15,18 @@ Resources:
         ]
       }
 
+  ### DEV
   OrganizationAccountAccessServerlessOpsDevPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev}:role/OrganizationAccountAccessRole"
           }
         ]
       }
@@ -33,14 +34,14 @@ Resources:
   OrganizationAccountAccessServerlessOpsDevUsersPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev-Users
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev-Users
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessUserRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev}:role/OrganizationAccountAccessUserRole"
           }
         ]
       }
@@ -48,29 +49,30 @@ Resources:
   OrganizationAccountAccessServerlessOpsDevAdminsPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-dev-Admins
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev-Admins
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::355364402302:role/OrganizationAccountAccessAdminRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev}:role/OrganizationAccountAccessAdminRole"
           }
         ]
       }
 
+  ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-prod
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_prod}:role/OrganizationAccountAccessRole"
           }
         ]
       }
@@ -78,14 +80,14 @@ Resources:
   OrganizationAccountAccessServerlessOpsProdUsersPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod-Users
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-prod-Users
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessUserRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_prod}:role/OrganizationAccountAccessUserRole"
           }
         ]
       }
@@ -93,17 +95,18 @@ Resources:
   OrganizationAccountAccessServerlessOpsProdAdminsPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      ManagedPolicyName: OrganizationAccountAccess-serverlessops-prod-Admins
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-prod-Admins
       PolicyDocument: {
         "Version": "2012-10-17",
         "Statement": [
           {
             "Effect": "Allow",
             "Action": "sts:assumeRole",
-            "Resource": "arn:aws:iam::641494176294:role/OrganizationAccountAccessAdminRole"
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_prod}:role/OrganizationAccountAccessAdminRole"
           }
         ]
       }
+
 
 Outputs:
   CloudFormationFullAccessArn:
@@ -113,18 +116,21 @@ Outputs:
     Export:
       Name: ${self:service}-${self:provider.stage}-CloudFormationFullAccessArn
 
+  ### DEV
   OrganizationAccountAccessServerlessOpsDevPolicyArn:
     Description: Policy ARN
     Value:
       Ref: OrganizationAccountAccessServerlessOpsDevPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevPolicyArn
+
   OrganizationAccountAccessServerlessOpsDevUsersPolicyArn:
     Description: Policy ARN
     Value:
       Ref: OrganizationAccountAccessServerlessOpsDevUsersPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevUsersPolicyArn
+
   OrganizationAccountAccessServerlessOpsDevAdminPolicyArn:
     Description: Policy ARN
     Value:
@@ -132,18 +138,21 @@ Outputs:
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
 
+  ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicyArn:
     Description: Policy ARN
     Value:
       Ref: OrganizationAccountAccessServerlessOpsProdPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdPolicyArn
+
   OrganizationAccountAccessServerlessOpsProdUsersPolicyArn:
     Description: Policy ARN
     Value:
       Ref: OrganizationAccountAccessServerlessOpsProdUsersPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdUsersPolicyArn
+
   OrganizationAccountAccessServerlessOpsProdAdminPolicyArn:
     Description: Policy ARN
     Value:
