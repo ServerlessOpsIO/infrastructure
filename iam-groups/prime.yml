@@ -5,6 +5,7 @@ Resources:
       GroupName: PrimeAdmins
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
+
   PrimePowerUsers:
     Type: "AWS::IAM::Group"
     Properties:
@@ -20,6 +21,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSCloudTrailFullAccess
         - arn:aws:iam::aws:policy/job-function/Billing
         - Fn::ImportValue: iam-policies-${self:provider.stage}-CloudFormationFullAccessArn
+
   PrimeUsers:
     Type: "AWS::IAM::Group"
     Properties:
@@ -56,5 +58,14 @@ Resources:
       GroupName: ProdAdmins
       ManagedPolicyArns:
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdAdminPolicyArn
+
+  TrainingAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: TrainingAdmins
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsTrainingPrimeAdminPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsTrainingDevAdminPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsTrainingProdAdminPolicyArn
 
 
