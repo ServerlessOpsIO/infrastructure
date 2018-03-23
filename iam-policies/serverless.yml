@@ -7,6 +7,15 @@
 # The `service` block is the name of the service
 service: iam-policies
 
+
+custom:
+  account_number_dev: '355364402302'
+  account_number_prod: '641494176294'
+  training_account_number_prime: '227071656313'
+  training_account_number_dev: '144121712529'
+  training_account_number_prod: '820506766567'
+
+
 # NOTE: Password policy cannot be set with CFN resources. One day maybe
 # investigate the following:
 # https://github.com/widdix/aws-cf-templates/blob/master/security/account-password-policy.yaml
