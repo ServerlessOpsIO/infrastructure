@@ -1,0 +1,9 @@
+Resources:
+  TravisDeploy:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Deploy
+      UserName:
+        travis-deploy
+
