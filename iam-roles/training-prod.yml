@@ -1,0 +1,80 @@
+Resources:
+  OrganizationAccountAccessRole:
+    Type: "AWS::IAM::Role"
+    # Let's not lock us out the org.
+    DeletionPolicy: Retain
+    Properties:
+      RoleName: OrganizationAccountAccessRole
+      AssumeRolePolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::349603509961:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          }
+        ]
+      }
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  OrganizationAccountAccessUserRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: OrganizationAccountAccessUserRole
+      AssumeRolePolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::349603509961:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          },
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::227071656313:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          }
+        ]
+      }
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
+
+  OrganizationAccountAccessAdminRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: OrganizationAccountAccessAdminRole
+      AssumeRolePolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::349603509961:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          },
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::227071656313:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          }
+        ]
+      }
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+

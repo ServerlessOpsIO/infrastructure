@@ -1,0 +1,22 @@
+Resources:
+  # When creating a new subdomain you must update the parent domain with an NS
+  # record and the values from this domain.
+  ServerlessOpsProd:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "prod.training.serverlessops.io"
+      HostedZoneConfig:
+        Comment: ServerlessOps - Training Prod
+
+Outputs:
+  ServerlessOpsProdvNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOpsProd
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsProdNameServers
+
