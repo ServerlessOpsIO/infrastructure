@@ -71,6 +71,21 @@ Resources:
         - ns-667.awsdns-19.net
         - ns-151.awsdns-18.com
 
+  ServerlessOpsTraining:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Prod domain delegation"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "training.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-747.awsdns-29.net
+        - ns-1951.awsdns-51.co.uk
+        - ns-1097.awsdns-09.org
+        - ns-152.awsdns-19.com
+
   ServerlessOpsDomainKeyHs1:
     Type: "AWS::Route53::RecordSet"
     Properties:

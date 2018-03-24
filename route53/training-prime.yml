@@ -1,0 +1,52 @@
+Resources:
+  # When creating a new subdomain you must update the parent domain with an NS
+  # record and the values from this domain.
+  ServerlessOpsTraining:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "training.serverlessops.io"
+      HostedZoneConfig:
+        Comment: ServerlessOps - Training Prime
+
+  ServerlessOpsDevTraining:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Training Dev delegation"
+      HostedZoneId:
+        Ref: ServerlessOpsTraining
+      Name: "dev.training.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-230.awsdns-28.com
+        - ns-729.awsdns-27.net
+        - ns-1515.awsdns-61.org
+        - ns-1921.awsdns-48.co.uk
+
+  ServerlessOpsProdTraining:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Training Dev delegation"
+      HostedZoneId:
+        Ref: ServerlessOpsTraining
+      Name: "prod.training.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-406.awsdns-50.com
+        - ns-1496.awsdns-59.org
+        - ns-585.awsdns-09.net
+        - ns-1934.awsdns-49.co.uk
+
+Outputs:
+  ServerlessOpsDevNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOpsTraining
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsDevNameServers
+
