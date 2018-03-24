@@ -39,3 +39,19 @@ Resources:
       ManagedPolicyArns:
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdAdminPolicyArn
 
+
+  # CI/CD deployment
+  DevDeploy:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevDeploy
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevDeployPolicyArn
+
+  ProdDeploy:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdDeploy
+      ManagedPolicyArns:
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdDeployPolicyArn
+

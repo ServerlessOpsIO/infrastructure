@@ -78,3 +78,23 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
+  OrganizationAccountAccessDeployRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: OrganizationAccountAccessDeployRole
+      AssumeRolePolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::227071656313:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          }
+        ]
+      }
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
