@@ -61,6 +61,22 @@ Resources:
         ]
       }
 
+  OrganizationAccountAccessServerlessOpsDevDeployPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev-Deploy
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev}:role/OrganizationAccountAccessDeployRole"
+          }
+        ]
+      }
+
+
   ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -107,6 +123,22 @@ Resources:
         ]
       }
 
+  OrganizationAccountAccessServerlessOpsProdDeployPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-prod-Deploy
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_prod}:role/OrganizationAccountAccessDeployRole"
+          }
+        ]
+      }
+
+
 
 Outputs:
   CloudFormationFullAccessArn:
@@ -138,6 +170,13 @@ Outputs:
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevAdminPolicyArn
 
+  OrganizationAccountAccessServerlessOpsDevDeployPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDevDeployPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevDeployPolicyArn
+
   ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicyArn:
     Description: Policy ARN
@@ -159,3 +198,11 @@ Outputs:
       Ref: OrganizationAccountAccessServerlessOpsProdAdminsPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdAdminPolicyArn
+
+  OrganizationAccountAccessServerlessOpsProdDeployPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsProdDeployPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsProdDeployPolicyArn
+
