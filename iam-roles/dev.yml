@@ -69,7 +69,17 @@ Resources:
               - Effect: "Allow"
                 Action: "CloudFormation:*"
                 Resource: "*"
-
+        - PolicyName: "SnsTopicManagement"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "sns:CreateTopic"
+                  - "sns:DeleteTopic"
+                  - "sns:GetTopicAttributes"
+                  - "sns:SetTopicAttributes"
+                Resource: "*"
         - PolicyName: "Route53Zones"
           PolicyDocument:
             Version: "2012-10-17"
