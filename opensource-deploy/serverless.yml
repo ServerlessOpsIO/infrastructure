@@ -7,48 +7,4 @@ provider:
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
 
-resources:
-  Resources:
-    DeployS3Bucket:
-      Type: "AWS::S3::Bucket"
-      Properties:
-        # Overriding this for ease by outsiders
-        BucketName: "serverlessops-${self:service}-${self:provider.stage}"
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: error.html
-
-    OssDeployIamPolicy:
-      Type: "AWS::IAM::ManagedPolicy"
-      Properties:
-        Description: "Allows managing the contents of the OSS Deploy bucket"
-        PolicyDocument: {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": "s3:ListBucket",
-              "Resource": "arn:aws:s3:::*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": "s3:*",
-              "Resource": "arn:aws:s3:::serverlessops-${self:service}-${self:provider.stage}/*"
-            }
-          ]
-        }
-
-    OssDeployGroup:
-      Type: "AWS::IAM::Group"
-      Properties:
-        GroupName: OssDeploy
-        ManagedPolicyArns:
-          - Ref: OssDeployIamPolicy
-
-    TravisDeployOssIamUser:
-      Type: "AWS::IAM::User"
-      Properties:
-        Groups:
-          - Ref: OssDeployGroup
-        UserName: travis-deploy-oss
-
+resources: ${file(./${self:provider.stage}.yml)}

@@ -1,0 +1,48 @@
+Resources:
+
+  OssDeployIamRoleServerlessOpsDevPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OssDeployIamRole-serverlessops-dev
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::355364402302:role/OssDeployIamRole"
+          }
+        ]
+      }
+
+  OssDeployIamRoleServerlessOpsProdPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OssDeployIamRole-serverlessops-prod
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::641494176294:role/OssDeployIamRole"
+          }
+        ]
+      }
+
+
+  OssDeployGroup:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: OssDeploy
+      ManagedPolicyArns:
+        - Ref: OssDeployIamRoleServerlessOpsDevPolicy
+        - Ref: OssDeployIamRoleServerlessOpsProdPolicy
+
+  TravisDeployOssIamUser:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Ref: OssDeployGroup
+      UserName: travis-deploy-oss
+
