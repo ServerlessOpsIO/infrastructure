@@ -8,7 +8,7 @@ Resources:
         IndexDocument: index.html
         ErrorDocument: error.html
 
-  OssDeployIamPolicy:
+  OssS3DeployIamPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
       Description: "Allows managing the contents of the OSS Deploy bucket"
@@ -24,6 +24,21 @@ Resources:
             "Effect": "Allow",
             "Action": "s3:*",
             "Resource": "arn:aws:s3:::serverlessops-${self:service}-${self:provider.stage}/*"
+          }
+        ]
+      }
+
+  OssCfnDeployIamPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "Allows deploying via CFN."
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "cloudformation:*",
+            "Resource": "*"
           }
         ]
       }
@@ -46,14 +61,16 @@ Resources:
         ]
       }
       ManagedPolicyArns:
-        - Ref: OssDeployIamPolicy
+        - Ref: OssS3DeployIamPolicy
+        - Ref: OssCfnDeployIamPolicy
 
   OssDeployGroup:
     Type: "AWS::IAM::Group"
     Properties:
       GroupName: OssDeploy
       ManagedPolicyArns:
-        - Ref: OssDeployIamPolicy
+        - Ref: OssS3DeployIamPolicy
+        - Ref: OssCfnDeployIamPolicy
 
   TravisDeployOssIamUser:
     Type: "AWS::IAM::User"
