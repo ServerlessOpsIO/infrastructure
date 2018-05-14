@@ -1,0 +1,113 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: dashbird-integration
+
+# NOTE: Password policy cannot be set with CFN resources. One day maybe
+# investigate the following:
+# https://github.com/widdix/aws-cf-templates/blob/master/security/account-password-policy.yaml
+
+# The `provider` block defines where your service will be deployed
+
+custom:
+  dashbird_account_id: "458024764010"
+  dashbird_external_id: "${env:EXTERNAL_ID}"
+
+
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+
+
+resources:
+  Parameters:
+    DashbirdAccountId:
+      Type: String
+      Description: "Dashbird's account Id"
+      Default: "${self:custom.dashbird_account_id}"
+
+    DashbirdExternalId:
+      Type: String
+      Description: "Dashbird's external ID for your organization"
+      Default: "${self:custom.dashbird_external_id}"
+
+
+  Resources:
+    DashbirdIntegrationRole:
+      Type: "AWS::IAM::Role"
+      # Let's not lock us out the org.
+      DeletionPolicy: Retain
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                AWS:
+                  Fn::Join:
+                    - ''
+                    - - "arn:aws:iam::"
+                      - Ref: DashbirdAccountId
+                      - ":root"
+              Action: "sts:AssumeRole"
+              Condition:
+                StringEquals:
+                  sts:ExternalId:
+                    Ref: DashbirdExternalId
+        Policies:
+          - PolicyName: "DashbirdAccess"
+            PolicyDocument:
+              {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Action": "logs:FilterLogEvents",
+                    "Resource": "*"
+                  },
+                  {
+                    "Effect": "Allow",
+                    "Action": "logs:describeLogStreams",
+                    "Resource": "*"
+                  },
+                  {
+                    "Effect": "Allow",
+                    "Action": "lambda:listFunctions",
+                    "Resource": "*"
+                  },
+                  {
+                    "Effect": "Allow",
+                    "Action": "lambda:listTags",
+                    "Resource": "*"
+                  },
+                  {
+                    "Effect": "Allow",
+                    "Action": "xray:Get*",
+                    "Resource": "*"
+                  },
+                  {
+                    "Effect": "Allow",
+                    "Action": "xray:BatchGet*",
+                    "Resource": "*"
+                  }
+                ]
+              }
+
+  Outputs:
+    DashbirdIntegrationRoleArn:
+      Description: "Arn of integration role."
+      Value:
+        Fn::GetAtt:
+          - DashbirdIntegrationRole
+          - Arn
+
+    DashbirdIntegrationRoleExternalId:
+      Description: "Role external Id"
+      Value:
+        Ref: DashbirdExternalId
+
