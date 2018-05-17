@@ -37,6 +37,7 @@ resources:
   Resources:
     S3Bucket:
       Type: 'AWS::S3::Bucket'
+      DependsOn: CloudWatchLogs
 
     S3BucketPolicy:
       Type: 'AWS::S3::BucketPolicy'
@@ -71,11 +72,17 @@ resources:
 
     SnsTopic:
       Type: 'AWS::SNS::Topic'
+      DependsOn:
+        - CloudWatchLogs
+        - S3BucketPolicy
       Properties:
         DisplayName: 'CloudTrail Events'
 
     SnsTopicPolicy:
       Type: 'AWS::SNS::TopicPolicy'
+      DependsOn:
+        - CloudWatchLogs
+        - S3BucketPolicy
       Properties:
         PolicyDocument:
           Statement:
@@ -117,6 +124,7 @@ resources:
 
     CloudTrail:
       Type: 'AWS::CloudTrail::Trail'
+      DependsOn: SnsTopicPolicy
       Properties:
         CloudWatchLogsLogGroupArn:
           Fn::GetAtt:
