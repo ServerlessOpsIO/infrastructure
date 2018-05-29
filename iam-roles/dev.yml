@@ -44,6 +44,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonAPIGatewayAdministrator
         - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/AmazonSNSFullAccess
         - arn:aws:iam::aws:policy/AmazonSQSFullAccess
         - arn:aws:iam::aws:policy/AWSXrayFullAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
@@ -70,17 +71,6 @@ Resources:
             Statement:
               - Effect: "Allow"
                 Action: "CloudFormation:*"
-                Resource: "*"
-        - PolicyName: "SnsTopicManagement"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action:
-                  - "sns:CreateTopic"
-                  - "sns:DeleteTopic"
-                  - "sns:GetTopicAttributes"
-                  - "sns:SetTopicAttributes"
                 Resource: "*"
         - PolicyName: "Route53Zones"
           PolicyDocument:

@@ -54,6 +54,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
         - arn:aws:iam::aws:policy/AWSXrayFullAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSNSFullAccess
         - arn:aws:iam::aws:policy/AmazonSQSFullAccess
       Policies:
         - PolicyName: "IamRoleManage"
@@ -77,17 +78,6 @@ Resources:
             Statement:
               - Effect: "Allow"
                 Action: "CloudFormation:*"
-                Resource: "*"
-        - PolicyName: "SnsTopicManagement"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action:
-                  - "sns:CreateTopic"
-                  - "sns:DeleteTopic"
-                  - "sns:GetTopicAttributes"
-                  - "sns:SetTopicAttributes"
                 Resource: "*"
         - PolicyName: "Route53Zones"
           PolicyDocument:
