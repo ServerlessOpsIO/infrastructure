@@ -56,6 +56,7 @@ Resources:
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSNSFullAccess
         - arn:aws:iam::aws:policy/AmazonSQSFullAccess
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
