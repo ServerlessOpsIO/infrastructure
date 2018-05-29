@@ -54,6 +54,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
         - arn:aws:iam::aws:policy/AWSXrayFullAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSQSFullAccess
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
