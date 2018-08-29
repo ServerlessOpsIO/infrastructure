@@ -49,6 +49,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSXrayFullAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+        - arn:aws:iam::aws:policy/AutoScalingFullAccess
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
