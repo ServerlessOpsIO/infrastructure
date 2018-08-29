@@ -11,7 +11,7 @@ provider:
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
   stackTags:
-    x-service: aws-health-event-publisher
+    x-service: ${self:service}
     x-stack: ${self:service}-${self:provider.stage}
 
 
