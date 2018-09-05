@@ -1,0 +1,19 @@
+# Creates and handles deploy bucket for open source services.
+
+service: deploy
+
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+
+resources:
+  Resources:
+    DeployS3Bucket:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        # Overriding this for ease by outsiders
+        BucketName: "serverlessops-${self:service}-${self:provider.stage}"
+
+# FIXME: We should move travis users and groups here.
+

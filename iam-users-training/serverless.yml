@@ -5,7 +5,7 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service: iam-users
+service: iam-users-training
 
 # NOTE: Password policy cannot be set with CFN resources. One day maybe
 # investigate the following:
