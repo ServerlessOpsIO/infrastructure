@@ -1,5 +1,5 @@
 Resources:
-  User0:
+  user0:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
@@ -7,544 +7,751 @@ Resources:
         - ProdUsers
       UserName: user0
 
-  User0AccessKey:
+  user0AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User0
+        Ref: user0
 
-  User1:
+  user1:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user1
 
-  User1AccessKey:
+  user1AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User1
+        Ref: user1
 
-  User2:
+  user2:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user2
 
-  User2AccessKey:
+  user2AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User2
+        Ref: user2
 
-  User3:
+  user3:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user3
 
-  User3AccessKey:
+  user3AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User3
+        Ref: user3
 
-  User4:
+  user4:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user4
 
-  User4AccessKey:
+  user4AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User4
+        Ref: user4
 
-  User5:
+  user5:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user5
 
-  User5AccessKey:
+  user5AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User5
+        Ref: user5
 
-  User6:
+  user6:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user6
 
-  User6AccessKey:
+  user6AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User6
+        Ref: user6
 
-  User7:
+  user7:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user7
 
-  User7AccessKey:
+  user7AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User7
+        Ref: user7
 
-  User8:
+  user8:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user8
 
-  User8AccessKey:
+  user8AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User8
+        Ref: user8
 
-  User9:
+  user9:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user9
 
-  User9AccessKey:
+  user9AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User9
+        Ref: user9
 
-  User10:
+  user10:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user10
 
-  User10AccessKey:
+  user10AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User10
+        Ref: user10
 
-  User11:
+  user11:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user11
 
-  User11AccessKey:
+  user11AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User11
+        Ref: user11
 
-  User12:
+  user12:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user12
 
-  User12AccessKey:
+  user12AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User12
+        Ref: user12
 
-  User13:
+  user13:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user13
 
-  User13AccessKey:
+  user13AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User13
+        Ref: user13
 
-  User14:
+  user14:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user14
 
-  User14AccessKey:
+  user14AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User14
+        Ref: user14
 
-  User15:
+  user15:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user15
 
-  User15AccessKey:
+  user15AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User15
+        Ref: user15
 
-  User16:
+  user16:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user16
 
-  User16AccessKey:
+  user16AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User16
+        Ref: user16
 
-  User17:
+  user17:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user17
 
-  User17AccessKey:
+  user17AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User17
+        Ref: user17
 
-  User18:
+  user18:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user18
 
-  User18AccessKey:
+  user18AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User18
+        Ref: user18
 
-  User19:
+  user19:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user19
 
-  User19AccessKey:
+  user19AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User19
+        Ref: user19
 
-  User20:
+  user20:
     Type: "AWS::IAM::User"
     Properties:
       Groups:
-        - DevUsers
-        - ProdUsers
+        - Devusers
+        - Produsers
       UserName: user20
 
-  User20AccessKey:
+  user20AccessKey:
     Type: "AWS::IAM::AccessKey"
     Properties:
       UserName:
-        Ref: User20
+        Ref: user20
 
+  user21:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user21
+
+  user21AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user21
+
+  user22:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user22
+
+  user22AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user22
+
+  user23:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user23
+
+  user23AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user23
+
+  user24:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user24
+
+  user24AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user24
+
+  user25:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user25
+
+  user25AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user25
+
+  user26:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user26
+
+  user26AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user26
+
+  user27:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user27
+
+  user27AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user27
+
+  user28:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+      UserName: user28
+
+  user28AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user28
 
 
 Outputs:
-  User0AccessKey:
+  user0AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User0AccessKey
+      Ref: user0AccessKey
 
-  User0SecretAccessKey:
+  user0SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User0AccessKey
+        - user0AccessKey
         - SecretAccessKey
 
-  User1AccessKey:
+  user1AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User1AccessKey
+      Ref: user1AccessKey
 
-  User1SecretAccessKey:
+  user1SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User1AccessKey
+        - user1AccessKey
         - SecretAccessKey
 
-  User2AccessKey:
+  user2AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User2AccessKey
+      Ref: user2AccessKey
 
-  User2SecretAccessKey:
+  user2SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User2AccessKey
+        - user2AccessKey
         - SecretAccessKey
 
-  User3AccessKey:
+  user3AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User3AccessKey
+      Ref: user3AccessKey
 
-  User3SecretAccessKey:
+  user3SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User3AccessKey
+        - user3AccessKey
         - SecretAccessKey
 
-  User4AccessKey:
+  user4AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User4AccessKey
+      Ref: user4AccessKey
 
-  User4SecretAccessKey:
+  user4SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User4AccessKey
+        - user4AccessKey
         - SecretAccessKey
 
-  User5AccessKey:
+  user5AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User5AccessKey
+      Ref: user5AccessKey
 
-  User5SecretAccessKey:
+  user5SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User5AccessKey
+        - user5AccessKey
         - SecretAccessKey
 
-  User6AccessKey:
+  user6AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User6AccessKey
+      Ref: user6AccessKey
 
-  User6SecretAccessKey:
+  user6SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User6AccessKey
+        - user6AccessKey
         - SecretAccessKey
 
-  User7AccessKey:
+  user7AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User7AccessKey
+      Ref: user7AccessKey
 
-  User7SecretAccessKey:
+  user7SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User7AccessKey
+        - user7AccessKey
         - SecretAccessKey
 
-  User8AccessKey:
+  user8AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User8AccessKey
+      Ref: user8AccessKey
 
-  User8SecretAccessKey:
+  user8SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User8AccessKey
+        - user8AccessKey
         - SecretAccessKey
 
-  User9AccessKey:
+  user9AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User9AccessKey
+      Ref: user9AccessKey
 
-  User9SecretAccessKey:
+  user9SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User9AccessKey
+        - user9AccessKey
         - SecretAccessKey
 
-  User10AccessKey:
+  user10AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User10AccessKey
+      Ref: user10AccessKey
 
-  User10SecretAccessKey:
+  user10SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User10AccessKey
+        - user10AccessKey
         - SecretAccessKey
 
-  User11AccessKey:
+  user11AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User11AccessKey
+      Ref: user11AccessKey
 
-  User11SecretAccessKey:
+  user11SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User11AccessKey
+        - user11AccessKey
         - SecretAccessKey
 
-  User12AccessKey:
+  user12AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User12AccessKey
+      Ref: user12AccessKey
 
-  User12SecretAccessKey:
+  user12SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User12AccessKey
+        - user12AccessKey
         - SecretAccessKey
 
-  User13AccessKey:
+  user13AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User13AccessKey
+      Ref: user13AccessKey
 
-  User13SecretAccessKey:
+  user13SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User13AccessKey
+        - user13AccessKey
         - SecretAccessKey
 
-  User14AccessKey:
+  user14AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User14AccessKey
+      Ref: user14AccessKey
 
-  User14SecretAccessKey:
+  user14SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User14AccessKey
+        - user14AccessKey
         - SecretAccessKey
 
-  User15AccessKey:
+  user15AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User15AccessKey
+      Ref: user15AccessKey
 
-  User15SecretAccessKey:
+  user15SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User15AccessKey
+        - user15AccessKey
         - SecretAccessKey
 
-  User16AccessKey:
+  user16AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User16AccessKey
+      Ref: user16AccessKey
 
-  User16SecretAccessKey:
+  user16SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User16AccessKey
+        - user16AccessKey
         - SecretAccessKey
 
-  User17AccessKey:
+  user17AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User17AccessKey
+      Ref: user17AccessKey
 
-  User17SecretAccessKey:
+  user17SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User17AccessKey
+        - user17AccessKey
         - SecretAccessKey
 
-  User18AccessKey:
+  user18AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User18AccessKey
+      Ref: user18AccessKey
 
-  User18SecretAccessKey:
+  user18SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User18AccessKey
+        - user18AccessKey
         - SecretAccessKey
 
-  User19AccessKey:
+  user19AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User19AccessKey
+      Ref: user19AccessKey
 
-  User19SecretAccessKey:
+  user19SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User19AccessKey
+        - user19AccessKey
         - SecretAccessKey
 
-  User20AccessKey:
+  user20AccessKey:
     Description: "AWS access key"
     Value:
-      Ref: User20AccessKey
+      Ref: user20AccessKey
 
-  User20SecretAccessKey:
+  user20SecretAccessKey:
     Description: "AWS secret access key"
     Value:
       Fn::GetAtt:
-        - User20AccessKey
+        - user20AccessKey
+        - SecretAccessKey
+
+  user21AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user21AccessKey
+
+  user21SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user21AccessKey
+        - SecretAccessKey
+
+  user22AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user22AccessKey
+
+  user22SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user22AccessKey
+        - SecretAccessKey
+
+  user23AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user23AccessKey
+
+  user23SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user23AccessKey
+        - SecretAccessKey
+
+  user24AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user24AccessKey
+
+  user24SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user24AccessKey
+        - SecretAccessKey
+
+  user25AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user25AccessKey
+
+  user25SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user25AccessKey
+        - SecretAccessKey
+
+  user26AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user26AccessKey
+
+  user26SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user26AccessKey
+        - SecretAccessKey
+
+  user27AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user27AccessKey
+
+  user27SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user27AccessKey
+        - SecretAccessKey
+
+  user28AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user28AccessKey
+
+  user28SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user28AccessKey
         - SecretAccessKey
 
