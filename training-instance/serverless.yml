@@ -1,0 +1,74 @@
+service: training-instance-${self:custom.user.name}
+
+#plugins:
+#  - serverless-cloudformation-sub-variables
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  stackTags:
+    x-service: ${self:service}
+    x-stack: ${self:service}-${self:provider.stage}
+
+custom:
+  dns_zone: training.serverlessops.io
+  user:
+    name: user0
+    access_key: "${cf:iam-users-${self:provider.stage}.${self:custom.user.name}AccessKey}"
+    secret_key: "${cf:iam-users-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
+    password: ${env:PASSWORD, ''}
+  instance:
+    hostname: "${self:custom.user.name}.${self:custom.dns_zone}"
+
+resources:
+  Resources:
+    Ec2Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        ImageId: ami-0e6d2e8684d4ccb3e
+        InstanceType: t2.micro
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: "true"
+            DeviceIndex: "0"
+            GroupSet:
+              - sg-07ac7a5271894dbac
+            SubnetId: subnet-0f3301fa7d523bd6f
+        UserData:
+          Fn::Base64: |
+            #!/bin/sh
+            hostname "${self:custom.instance.hostname}"
+            yum update -y
+            yum install -y  docker
+            echo ec2-user:${self:custom.user.password} | chpasswd
+            usermod -a -G docker ec2-user
+            systemctl restart docker
+            sed -i.bak 's,PasswordAuthentication.*,PasswordAuthentication yes,' /etc/ssh/sshd_config
+            systemctl restart sshd
+            echo "SLS_STAGE=${self:custom.user.name}" >> /home/ec2-user/.bash_profile
+            echo "AWS_ACCESS_KEY_ID=${self:custom.user.access_key}" >> /home/ec2-user/.bash_profile
+            echo "AWS_SECRET_ACCESS_KEY=${self:custom.user.secret_key}" >> /home/ec2-user/.bash_profile
+            echo "alias workshop='docker run -ti -e SLS_STAGE=\$SLS_STAGE -e AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_ACCESS_KEY --rm serverlessops/training:latest'" >> /home/ec2-user/.bash_profile
+            sed -i'' 's,^EOF,\n\nTo start the workshop run the following command:\n\$ workshop\n\nEOF,' /etc/update-motd.d/30-banner
+            update-motd
+
+    DnsRecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneName: ${self:custom.dns_zone}.
+        Name: ${self:custom.instance.hostname}
+        Type: CNAME
+        TTL: '300'
+        ResourceRecords:
+          - Fn::GetAtt:
+            - Ec2Instance
+            - PublicDnsName
+
+  Outputs:
+    DnsName:
+      Description: Instance DNS Name
+      Value: ${self:custom.instance.hostname}
+      Export:
+        Name: "${self:service}-${self:provider.stage}-DnsName"
+
