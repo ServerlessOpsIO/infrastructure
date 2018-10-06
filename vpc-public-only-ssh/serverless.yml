@@ -1,0 +1,23 @@
+# The `service` block is the name of the service
+service: vpc-public-only-ssh
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  stackTags:
+    x-service: ${self:service}
+    x-stack: ${self:service}-${self:provider.stage}
+
+resources:
+  Resources:
+    SSHAccess:
+      Type: 'AWS::EC2::SecurityGroupIngress'
+      Properties:
+        GroupId: "${cf:vpc-public-only-${self:provider.stage}.DefaultSecurityGroup}"
+        CidrIp: "0.0.0.0/0"
+        IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+
