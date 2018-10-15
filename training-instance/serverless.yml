@@ -50,6 +50,7 @@ resources:
             echo "AWS_ACCESS_KEY_ID=${self:custom.user.access_key}" >> /home/ec2-user/.bash_profile
             echo "AWS_SECRET_ACCESS_KEY=${self:custom.user.secret_key}" >> /home/ec2-user/.bash_profile
             echo "alias workshop='docker run -ti -e SLS_STAGE=\$SLS_STAGE -e AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_ACCESS_KEY --rm serverlessops/training:latest'" >> /home/ec2-user/.bash_profile
+            sed -i'' 's,^EOF,\n\nVisit the ServerlessOps workshop at:\n\https://github.com/ServerlessOpsIO/serverlessops-workshops\n\nEOF,' /etc/update-motd.d/30-banner
             sed -i'' 's,^EOF,\n\nTo start the workshop run the following command:\n\$ workshop\n\nEOF,' /etc/update-motd.d/30-banner
             update-motd
 
