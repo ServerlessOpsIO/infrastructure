@@ -28,7 +28,7 @@ resources:
       Type: AWS::EC2::Instance
       Properties:
         ImageId: ami-0e6d2e8684d4ccb3e
-        InstanceType: t2.micro
+        InstanceType: t2.nano
         NetworkInterfaces:
           - AssociatePublicIpAddress: "true"
             DeviceIndex: "0"
