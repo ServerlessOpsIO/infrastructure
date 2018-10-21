@@ -15,7 +15,7 @@ provider:
 custom:
   dns_zone: training.serverlessops.io
   user:
-    name: user0
+    name: ${env:USER, ''}
     access_key: "${cf:iam-users-${self:provider.stage}.${self:custom.user.name}AccessKey}"
     secret_key: "${cf:iam-users-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
     password: ${env:PASSWORD, ''}

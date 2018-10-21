@@ -1,0 +1,214 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: vpc-public-only-training
+
+plugins:
+  - serverless-cloudformation-sub-variables
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  region: ${opt:region, 'us-east-2'}
+  stackTags:
+    x-service: ${self:service}
+    x-stack: ${self:service}-${self:provider.stage}
+
+custom:
+  vpc:
+    cidr: "10.1.0.0/16"
+    private:
+      subnet1: "10.1.0.0/20"
+      subnet2: "10.1.16.0/20"
+      subnet3: "10.1.32.0/20"
+    public:
+      subnet1: "10.1.255.0/26"
+      subnet2: "10.1.255.64/26"
+      subnet3: "10.1.255.128/26"
+
+
+resources:
+  Resources:
+    Vpc:
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: "${self:custom.vpc.cidr}"
+        EnableDnsHostnames: true
+        EnableDnsSupport: true
+
+
+    InternetGateway:
+        Type: AWS::EC2::InternetGateway
+
+    InternetGatewayAttachment:
+        Type: AWS::EC2::VPCGatewayAttachment
+        Properties:
+            InternetGatewayId:
+              Ref: InternetGateway
+            VpcId:
+              Ref: Vpc
+
+    PublicRouteTable:
+      Type: AWS::EC2::RouteTable
+      Properties:
+          VpcId:
+            Ref: Vpc
+
+    DefaultPublicRoute:
+        Type: AWS::EC2::Route
+        DependsOn: InternetGatewayAttachment
+        Properties:
+            RouteTableId:
+              Ref: PublicRouteTable
+            DestinationCidrBlock: 0.0.0.0/0
+            GatewayId:
+              Ref: InternetGateway
+
+    PublicSubnet1:
+        Type: AWS::EC2::Subnet
+        Properties:
+            VpcId:
+              Ref: Vpc
+            AvailabilityZone:
+              Fn::Select:
+                - 0
+                - Fn::GetAZs: ""
+            CidrBlock: "${self:custom.vpc.private.subnet1}"
+            MapPublicIpOnLaunch: true
+            Tags:
+                - Key: Name
+                  Value:
+                    Fn::Sub:
+                      - "Public Subnet (AZ - #{AZ})"
+                      - AZ:
+                          Fn::Select:
+                            - 0
+                            - Fn::GetAZs: ""
+                - Key: AZ
+                  Value:
+                    Fn::Select:
+                      - 0
+                      - Fn::GetAZs: ""
+
+    PublicSubnet1RouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId:
+              Ref: PublicRouteTable
+            SubnetId:
+              Ref: PublicSubnet1
+
+    PublicSubnet2:
+        Type: AWS::EC2::Subnet
+        Properties:
+            VpcId:
+              Ref: Vpc
+            AvailabilityZone:
+              Fn::Select:
+                - 1
+                - Fn::GetAZs: ""
+            CidrBlock: "${self:custom.vpc.private.subnet2}"
+            MapPublicIpOnLaunch: true
+            Tags:
+                - Key: Name
+                  Value:
+                    Fn::Sub:
+                      - "Public Subnet (AZ - #{AZ})"
+                      - AZ:
+                          Fn::Select:
+                            - 1
+                            - Fn::GetAZs: ""
+                - Key: AZ
+                  Value:
+                    Fn::Select:
+                      - 1
+                      - Fn::GetAZs: ""
+
+    PublicSubnet2RouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId:
+              Ref: PublicRouteTable
+            SubnetId:
+              Ref: PublicSubnet2
+
+    PublicSubnet3:
+        Type: AWS::EC2::Subnet
+        Properties:
+            VpcId:
+              Ref: Vpc
+            AvailabilityZone:
+              Fn::Select:
+                - 2
+                - Fn::GetAZs: ""
+            CidrBlock: "${self:custom.vpc.private.subnet3}"
+            MapPublicIpOnLaunch: true
+            Tags:
+                - Key: Name
+                  Value:
+                    Fn::Sub:
+                      - "Public Subnet (AZ - #{AZ})"
+                      - AZ:
+                          Fn::Select:
+                            - 2
+                            - Fn::GetAZs: ""
+                - Key: AZ
+                  Value:
+                    Fn::Select:
+                      - 2
+                      - Fn::GetAZs: ""
+
+    PublicSubnet3RouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId:
+              Ref: PublicRouteTable
+            SubnetId:
+              Ref: PublicSubnet3
+
+
+
+    SshSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow http to client host
+        VpcId:
+          Ref: Vpc
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 127.0.0.1/32
+
+    AwsApiSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow AWS Api access.
+        VpcId:
+          Ref: Vpc
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 127.0.0.1/32
+
+  Outputs:
+    TrainingSecurityGroup:
+      Description: Default security group ID
+      Value:
+        Fn::GetAtt:
+          - Vpc
+          - DefaultSecurityGroup
+      Export:
+        Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroup"
