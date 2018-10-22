@@ -5,7 +5,7 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service: vpc-public-only-training
+service: vpc-training
 
 plugins:
   - serverless-cloudformation-sub-variables
@@ -23,15 +23,10 @@ provider:
 custom:
   vpc:
     cidr: "10.1.0.0/16"
-    private:
+    public:
       subnet1: "10.1.0.0/20"
       subnet2: "10.1.16.0/20"
       subnet3: "10.1.32.0/20"
-    public:
-      subnet1: "10.1.255.0/26"
-      subnet2: "10.1.255.64/26"
-      subnet3: "10.1.255.128/26"
-
 
 resources:
   Resources:
@@ -79,7 +74,7 @@ resources:
               Fn::Select:
                 - 0
                 - Fn::GetAZs: ""
-            CidrBlock: "${self:custom.vpc.private.subnet1}"
+            CidrBlock: "${self:custom.vpc.public.subnet1}"
             MapPublicIpOnLaunch: true
             Tags:
                 - Key: Name
@@ -95,6 +90,15 @@ resources:
                     Fn::Select:
                       - 0
                       - Fn::GetAZs: ""
+
+    PublicSubnet1SSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/PublicSubnet1Id"
+        Description: "Public Subnet 1 Id"
+        Type: "String"
+        Value:
+          Ref: PublicSubnet1
 
     PublicSubnet1RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
@@ -113,7 +117,7 @@ resources:
               Fn::Select:
                 - 1
                 - Fn::GetAZs: ""
-            CidrBlock: "${self:custom.vpc.private.subnet2}"
+            CidrBlock: "${self:custom.vpc.public.subnet2}"
             MapPublicIpOnLaunch: true
             Tags:
                 - Key: Name
@@ -129,6 +133,15 @@ resources:
                     Fn::Select:
                       - 1
                       - Fn::GetAZs: ""
+
+    PublicSubnet2SSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/PublicSubnet2Id"
+        Description: "Public Subnet 2 Id"
+        Type: "String"
+        Value:
+          Ref: PublicSubnet2
 
     PublicSubnet2RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
@@ -147,7 +160,7 @@ resources:
               Fn::Select:
                 - 2
                 - Fn::GetAZs: ""
-            CidrBlock: "${self:custom.vpc.private.subnet3}"
+            CidrBlock: "${self:custom.vpc.public.subnet3}"
             MapPublicIpOnLaunch: true
             Tags:
                 - Key: Name
@@ -164,6 +177,15 @@ resources:
                       - 2
                       - Fn::GetAZs: ""
 
+    PublicSubnet3SSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/PublicSubnet3Id"
+        Description: "Public Subnet 3 Id"
+        Type: "String"
+        Value:
+          Ref: PublicSubnet3
+
     PublicSubnet3RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
         Properties:
@@ -171,8 +193,6 @@ resources:
               Ref: PublicRouteTable
             SubnetId:
               Ref: PublicSubnet3
-
-
 
     SshSecurityGroup:
       Type: AWS::EC2::SecurityGroup
@@ -202,13 +222,80 @@ resources:
           FromPort: -1
           ToPort: -1
           CidrIp: 127.0.0.1/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+    SshSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/SshSecurityGroupId"
+        Description: "SSH Security group Id"
+        Type: "String"
+        Value:
+          Ref: SshSecurityGroup
+
+    AwsApiSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/AwsApiSecurityGroupId"
+        Description: "AWS API Security group Id"
+        Type: "String"
+        Value:
+          Ref: AwsApiSecurityGroup
+
+    DefaultSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/DefaultSecurityGroupId"
+        Description: "Default Security Group"
+        Type: "String"
+        Value:
+          Fn::GetAtt:
+            - Vpc
+            - DefaultSecurityGroup
 
   Outputs:
-    TrainingSecurityGroup:
+    DefaultSecurityGroupIdSSMParam:
       Description: Default security group ID
       Value:
-        Fn::GetAtt:
-          - Vpc
-          - DefaultSecurityGroup
+        Ref: DefaultSecurityGroupSSMParam
       Export:
-        Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroup"
+        Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroupIdSSMParam"
+
+    SshSecurityGroupIdSSMParam:
+      Description: SSH security group ID
+      Value:
+        Ref: SshSecurityGroupSSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-SshSecurityGroupIdSSMParam"
+
+    AwsApiSecurityGroupIdSSMParam:
+      Description: AWS API security group ID
+      Value:
+        Ref: AwsApiSecurityGroupSSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-AwsApiSecurityGroupIdSSMParam"
+
+    PublicSubnet1IdSSMParam:
+      Description: Public subnet 1 ID
+      Value:
+        Ref: PublicSubnet1SSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-PublicSubnet1IdSSMParam"
+
+    PublicSubnet2IdSSMParam:
+      Description: Public subnet 2 ID
+      Value:
+        Ref: PublicSubnet2SSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-PublicSubnet2IdSSMParam"
+
+    PublicSubnet3IdSSMParam:
+      Description: Public subnet 3 ID
+      Value:
+        Ref: PublicSubnet1SSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-PublicSubnet3IdSSMParam"
+
