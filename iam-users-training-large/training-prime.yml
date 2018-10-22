@@ -5,6 +5,7 @@ Resources:
       Groups:
         - DevUsers
         - ProdUsers
+        - PrimeUsers
       UserName: user30
 
   user30AccessKey:
@@ -19,6 +20,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user31
 
   user31AccessKey:
@@ -33,6 +35,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user32
 
   user32AccessKey:
@@ -47,6 +50,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user33
 
   user33AccessKey:
@@ -61,6 +65,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user34
 
   user34AccessKey:
@@ -75,6 +80,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user35
 
   user35AccessKey:
@@ -89,6 +95,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user36
 
   user36AccessKey:
@@ -103,6 +110,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user37
 
   user37AccessKey:
@@ -117,6 +125,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user38
 
   user38AccessKey:
@@ -131,6 +140,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user39
 
   user39AccessKey:
@@ -145,6 +155,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user40
 
   user40AccessKey:
@@ -159,6 +170,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user41
 
   user41AccessKey:
@@ -173,6 +185,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user42
 
   user42AccessKey:
@@ -187,6 +200,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user43
 
   user43AccessKey:
@@ -201,6 +215,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user44
 
   user44AccessKey:
@@ -215,6 +230,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user45
 
   user45AccessKey:
@@ -229,6 +245,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user46
 
   user46AccessKey:
@@ -243,6 +260,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user47
 
   user47AccessKey:
@@ -257,6 +275,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user48
 
   user48AccessKey:
@@ -271,6 +290,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user49
 
   user49AccessKey:
@@ -285,6 +305,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user50
 
   user50AccessKey:
@@ -299,6 +320,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user51
 
   user51AccessKey:
@@ -313,6 +335,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user52
 
   user52AccessKey:
@@ -327,6 +350,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user53
 
   user53AccessKey:
@@ -341,6 +365,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user54
 
   user54AccessKey:
@@ -355,6 +380,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user55
 
   user55AccessKey:
@@ -369,6 +395,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user56
 
   user56AccessKey:
@@ -383,6 +410,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user57
 
   user57AccessKey:
@@ -397,6 +425,7 @@ Resources:
       Groups:
         - Devusers
         - Produsers
+        - PrimeUsers
       UserName: user58
 
   user58AccessKey:

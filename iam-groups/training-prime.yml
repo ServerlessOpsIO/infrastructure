@@ -10,6 +10,8 @@ Resources:
     Type: "AWS::IAM::Group"
     Properties:
       GroupName: PrimeUsers
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
 
   DevUsers:
     Type: "AWS::IAM::Group"
