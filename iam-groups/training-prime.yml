@@ -19,6 +19,8 @@ Resources:
       GroupName: DevUsers
       ManagedPolicyArns:
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevUsersPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev1UsersPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev2UsersPolicyArn
 
   DevAdmins:
     Type: "AWS::IAM::Group"
