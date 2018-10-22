@@ -13,6 +13,8 @@ custom:
   account_number_prod: '641494176294'
   training_account_number_prime: '227071656313'
   training_account_number_dev: '144121712529'
+  training_account_number_dev1: '659978417268'
+  training_account_number_dev2: '795595179056'
   training_account_number_prod: '820506766567'
 
 
