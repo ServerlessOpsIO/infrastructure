@@ -197,35 +197,422 @@ resources:
     SshSecurityGroup:
       Type: AWS::EC2::SecurityGroup
       Properties:
-        GroupDescription: Allow http to client host
+        GroupDescription: SSH security group
         VpcId:
           Ref: Vpc
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 127.0.0.1/32
         SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
-        SecurityGroupEgress:
-        - IpProtocol: -1
-          FromPort: -1
-          ToPort: -1
-          CidrIp: 127.0.0.1/32
 
-    AwsApiSecurityGroup:
+    GithubSecurityGroup:
       Type: AWS::EC2::SecurityGroup
       Properties:
-        GroupDescription: Allow AWS Api access.
+        GroupDescription: GitHub Security Group
         VpcId:
           Ref: Vpc
         SecurityGroupEgress:
         - IpProtocol: -1
           FromPort: -1
           ToPort: -1
-          CidrIp: 127.0.0.1/32
+          CidrIp: 192.30.252.0/22
         - IpProtocol: -1
           FromPort: -1
           ToPort: -1
-          CidrIp: 0.0.0.0/0
+          CidrIp: 185.199.108.0/22
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 140.82.112.0/20
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 13.229.188.59/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 13.250.177.223/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 18.194.104.89/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 18.195.85.27/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 35.159.8.160/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 52.74.223.119/32
+
+    NpmSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow NPMJS access
+        VpcId:
+          Ref: Vpc
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.16.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.17.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.18.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.19.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.20.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.21.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.22.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.23.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.24.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.25.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.26.35/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 104.16.27.35/32
+
+    PypiSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow Pypi access
+        VpcId:
+          Ref: Vpc
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.200.223/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 69.172.201.153/32
+
+    # First 2 rules are for STS in us-east-1
+    AwsApiSecurityGroup: {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {"Ref": "Vpc"},
+        "GroupDescription": "AWS API access",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "54.239.21.217/32",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.46.134.192/32",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "54.239.29.25/32",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.0.0/20",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.144.196.192/26",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.94.248.160/28",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.29.0/26",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.219.96.0/20",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.94.4.0/24",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "13.58.0.0/15",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.24.0/22",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.15.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "54.239.0.224/28",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.219.80.0/20",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.220.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.191.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.14.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.216.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.92.76.0/22",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.28.0/24",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.16.0/21",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.188.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.94.199.0/24",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.224.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.251.0/24",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "3.16.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.219.96.0/20",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.219.80.0/20",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.92.76.0/22",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.94.248.160/28",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "13.58.0.0/15",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.15.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.220.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.191.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.14.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.216.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.188.0.0/16",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.224.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.95.251.0/24",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "3.16.0.0/14",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.15.127.128/26",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.216.170.128/25",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "13.59.250.0/26",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "52.15.247.208/29",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.188.9.0/27",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": "18.188.9.32/27",
+            "FromPort": -1,
+            "ToPort": -1,
+            "IpProtocol": "-1"
+          }
+        ]
+      }
+    }
 
     SshSecurityGroupSSMParam:
       Type: AWS::SSM::Parameter
@@ -235,6 +622,33 @@ resources:
         Type: "String"
         Value:
           Ref: SshSecurityGroup
+
+    NpmSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/NpmSecurityGroupId"
+        Description: "NPM Security group Id"
+        Type: "String"
+        Value:
+          Ref: NpmSecurityGroup
+
+    GithubSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/GithubSecurityGroupId"
+        Description: "Github Security group Id"
+        Type: "String"
+        Value:
+          Ref: GithubSecurityGroup
+
+    PypiSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/PypiSecurityGroupId"
+        Description: "Pypi Security group Id"
+        Type: "String"
+        Value:
+          Ref: PypiSecurityGroup
 
     AwsApiSecurityGroupSSMParam:
       Type: AWS::SSM::Parameter
@@ -270,6 +684,20 @@ resources:
         Ref: SshSecurityGroupSSMParam
       Export:
         Name: "${self:service}-${self:provider.stage}-SshSecurityGroupIdSSMParam"
+
+    GithubSecurityGroupIDSSMParam:
+      Description: SSH security group ID
+      Value:
+        Ref: GithubSecurityGroupSSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-GithubSecurityGroupIdSSMParam"
+
+    NpmSecurityGroupIdSSMParam:
+      Description: SSH security group ID
+      Value:
+        Ref: NpmSecurityGroupSSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-NpmSecurityGroupIdSSMParam"
 
     AwsApiSecurityGroupIdSSMParam:
       Description: AWS API security group ID
