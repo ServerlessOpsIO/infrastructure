@@ -23,6 +23,36 @@ Resources:
         - ns-1515.awsdns-61.org
         - ns-1921.awsdns-48.co.uk
 
+  ServerlessOpsDev1Training:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Training Dev delegation"
+      HostedZoneId:
+        Ref: ServerlessOpsTraining
+      Name: "dev1.training.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-676.awsdns-20.net
+        - ns-1508.awsdns-60.org
+        - ns-1775.awsdns-29.co.uk
+        - ns-146.awsdns-18.com
+
+  ServerlessOpsDev2Training:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "Training Dev delegation"
+      HostedZoneId:
+        Ref: ServerlessOpsTraining
+      Name: "dev2.training.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-1563.awsdns-03.co.uk
+        - ns-996.awsdns-60.net
+        - ns-418.awsdns-52.com
+        - ns-1212.awsdns-23.org
+
   ServerlessOpsProdTraining:
     Type: "AWS::Route53::RecordSet"
     Properties:

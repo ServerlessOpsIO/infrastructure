@@ -4,7 +4,7 @@ Resources:
   ServerlessOpsDev:
     Type: "AWS::Route53::HostedZone"
     Properties:
-      Name: "dev.training.serverlessops.io"
+      Name: "dev1.training.serverlessops.io"
       HostedZoneConfig:
         Comment: ServerlessOps - Training Dev
 
@@ -31,7 +31,7 @@ Outputs:
   ServerlessOpsDevSsmParam:
     Description: SSM Param store domain value key
     Value:
-      Ref: ServerlessOpsDevSsmParam
+      Ref: ServerlessOpsDomainSsmParam
     Export:
       Name: ${self:service}-${self:provider.stage}-ServerlessOpsDomainSsmParam
 
