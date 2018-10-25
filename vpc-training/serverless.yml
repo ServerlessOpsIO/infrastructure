@@ -211,6 +211,26 @@ resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
 
+    WebEgressSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: SSH security group
+        VpcId:
+          Ref: Vpc
+        SecurityGroupEgress:
+        - IpProtocol: "tcp"
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: "tcp"
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: "tcp"
+          FromPort: 9418
+          ToPort: 9418
+          CidrIp: 0.0.0.0/0
+
     GithubSecurityGroup:
       Type: AWS::EC2::SecurityGroup
       Properties:
@@ -322,10 +342,32 @@ resources:
           FromPort: -1
           ToPort: -1
           CidrIp: 151.101.200.223/32
+        # pypi.org
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.0.223/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.64.223/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.128.223/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.192.223/32
+        # Pythonhosted
         - IpProtocol: -1
           FromPort: -1
           ToPort: -1
           CidrIp: 69.172.201.153/32
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 151.101.117.63/32
 
     # First 2 rules are for STS in us-east-1
     AwsApiSecurityGroup: {
@@ -623,6 +665,15 @@ resources:
         Value:
           Ref: SshSecurityGroup
 
+    WebEgressSecurityGroupSSMParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/${self:service}/${self:provider.stage}/WebEgressSecurityGroupId"
+        Description: "Web Security group Id"
+        Type: "String"
+        Value:
+          Ref: WebEgressSecurityGroup
+
     NpmSecurityGroupSSMParam:
       Type: AWS::SSM::Parameter
       Properties:
@@ -677,6 +728,13 @@ resources:
         Ref: DefaultSecurityGroupSSMParam
       Export:
         Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroupIdSSMParam"
+
+    WebEgressSecurityGroupIdSSMParam:
+      Description: Web Egress security group ID
+      Value:
+        Ref: WebEgressSecurityGroupSSMParam
+      Export:
+        Name: "${self:service}-${self:provider.stage}-WebEgressSecurityGroupIdSSMParam"
 
     SshSecurityGroupIdSSMParam:
       Description: SSH security group ID

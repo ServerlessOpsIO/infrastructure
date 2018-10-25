@@ -31,6 +31,7 @@ custom:
     subnet: "${ssm:/vpc-training/${self:provider.stage}/PublicSubnet1Id}"
     security_groups:
       - "${ssm:/vpc-training/${self:provider.stage}/SshSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/WebEgressSecurityGroupId}"
       - "${ssm:/vpc-training/${self:provider.stage}/AwsApiSecurityGroupId}"
       - "${ssm:/vpc-training/${self:provider.stage}/GithubSecurityGroupId}"
       - "${ssm:/vpc-training/${self:provider.stage}/NpmSecurityGroupId}"
