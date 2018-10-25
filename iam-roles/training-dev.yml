@@ -75,6 +75,13 @@ Resources:
                   Fn::GetAtt:
                     - CloudFormationDeployRole
                     - Arn
+        - PolicyName: "LambdaExecute"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "lambda:InvokeFunction"
+                Resource: "*"
 
   CloudFormationDeployRole:
     Type: "AWS::IAM::Role"
