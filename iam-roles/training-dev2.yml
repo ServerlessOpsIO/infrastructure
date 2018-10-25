@@ -21,7 +21,6 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
-  # FIXME: Need to get finer grained with the IAM management permissions. Doing this for now.
   OrganizationAccountAccessUserRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -48,32 +47,17 @@ Resources:
         ]
       }
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
-        - arn:aws:iam::aws:policy/AmazonAPIGatewayAdministrator
-        - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
-        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
-        - arn:aws:iam::aws:policy/AWSXrayFullAccess
+        - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonCognitoReadOnly
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonSNSFullAccess
-        - arn:aws:iam::aws:policy/AmazonSQSFullAccess
-        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
-        - arn:aws:iam::aws:policy/AutoScalingFullAccess
+        - arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSQSReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
+        - arn:aws:iam::aws:policy/AutoScalingReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
       Policies:
-        - PolicyName: "IamRoleManage"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action:
-                  - "iam:AttachRolePolicy"
-                  - "iam:CreatePolicy"
-                  - "iam:CreateRole"
-                  - "iam:DeleteRole"
-                  - "iam:DeleteRolePolicy"
-                  - "iam:PassRole"
-                  - "iam:PutRolePolicy"
-                  - "iam:DetachRolePolicy"
-                Resource: "*"
         - PolicyName: "CloudFormationFullAccess"
           PolicyDocument:
             Version: "2012-10-17"
@@ -81,32 +65,31 @@ Resources:
               - Effect: "Allow"
                 Action: "CloudFormation:*"
                 Resource: "*"
-        - PolicyName: "Route53Zones"
+        - PolicyName: "CfnPassRole"
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: "Allow"
-                Action:
-                  - "route53:CreateHostedZone"
-                  - "route53:UpdateHostedZoneComment"
-                  - "route53:GetHostedZone"
-                  - "route53:ListHostedZones"
-                  - "route53:DeleteHostedZone"
-                  - "route53:ChangeResourceRecordSets"
-                  - "route53:GetChange"
-                  - "route53:ListResourceRecordSets"
-                  - "route53:GetHostedZoneCount"
-                  - "route53:ListHostedZonesByName"
-                  - "route53:CreateHealthCheck"
-                  - "route53:UpdateHealthCheck"
-                  - "route53:GetHealthCheck"
-                  - "route53:ListHealthChecks"
-                  - "route53:DeleteHealthCheck"
-                  - "route53:GetCheckerIpRanges"
-                  - "route53:GetHealthCheckCount"
-                  - "route53:GetHealthCheckStatus"
-                  - "route53:GetHealthCheckLastFailureReason"
-                Resource: "*"
+                Action: "iam:PassRole"
+                Resource:
+                  Fn::GetAtt:
+                    - CloudFormationDeployRole
+                    - Arn
+
+  CloudFormationDeployRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: CloudFormationDeployRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "cloudformation.amazonaws.com"
+            Action: "sts:AssumeRole"
+      # XXX: This is lax but at least everything is in a CFN stack.
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
 
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
@@ -136,6 +119,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
+  # Intended for a single deploy user in prime that can run deploys in different accounts.
   OrganizationAccountAccessDeployRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -155,4 +139,6 @@ Resources:
       }
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
+
+
 

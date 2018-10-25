@@ -61,6 +61,7 @@ Resources:
         ]
       }
 
+  # XXX: Intended for a single deploy user in prime that can run deploys in different accounts.
   OrganizationAccountAccessServerlessOpsDevDeployPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
