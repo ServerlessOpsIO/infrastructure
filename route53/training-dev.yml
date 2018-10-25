@@ -13,8 +13,7 @@ Resources:
     Properties:
       Name: "/${self:service}/${self:provider.stage}/ServerlessOpsDomain"
       Type: String
-      Value:
-        Ref: ServerlessOpsDev
+      Value: "dev.training.serverlessops.io"
 
 Outputs:
   ServerlessOpsDevNameServers:
@@ -31,7 +30,7 @@ Outputs:
   ServerlessOpsDevSsmParam:
     Description: SSM Param store domain value key
     Value:
-      Ref: ServerlessOpsDevSsmParam
+      Ref: ServerlessOpsDomainSsmParam
     Export:
       Name: ${self:service}-${self:provider.stage}-ServerlessOpsDomainSsmParam
 

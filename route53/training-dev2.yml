@@ -13,8 +13,7 @@ Resources:
     Properties:
       Name: "/${self:service}/${self:provider.stage}/ServerlessOpsDomain"
       Type: String
-      Value:
-        Ref: ServerlessOpsDev
+      Value: "dev2.training.serverlessops.io"
 
 Outputs:
   ServerlessOpsDevNameServers:

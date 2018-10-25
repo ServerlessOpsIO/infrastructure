@@ -18,10 +18,10 @@ Resources:
       Type: "NS"
       TTL: 86400
       ResourceRecords:
-        - ns-230.awsdns-28.com
-        - ns-729.awsdns-27.net
-        - ns-1515.awsdns-61.org
-        - ns-1921.awsdns-48.co.uk
+        - ns-455.awsdns-56.com
+        - ns-1072.awsdns-06.org
+        - ns-1548.awsdns-01.co.uk
+        - ns-576.awsdns-08.net
 
   ServerlessOpsDev1Training:
     Type: "AWS::Route53::RecordSet"
@@ -33,10 +33,10 @@ Resources:
       Type: "NS"
       TTL: 86400
       ResourceRecords:
-        - ns-676.awsdns-20.net
-        - ns-1508.awsdns-60.org
-        - ns-1775.awsdns-29.co.uk
-        - ns-146.awsdns-18.com
+        - ns-2024.awsdns-61.co.uk
+        - ns-1200.awsdns-22.org
+        - ns-894.awsdns-47.net
+        - ns-483.awsdns-60.com
 
   ServerlessOpsDev2Training:
     Type: "AWS::Route53::RecordSet"
@@ -48,10 +48,10 @@ Resources:
       Type: "NS"
       TTL: 86400
       ResourceRecords:
-        - ns-1563.awsdns-03.co.uk
-        - ns-996.awsdns-60.net
-        - ns-418.awsdns-52.com
-        - ns-1212.awsdns-23.org
+        - ns-1139.awsdns-14.org
+        - ns-826.awsdns-39.net
+        - ns-1957.awsdns-52.co.uk
+        - ns-37.awsdns-04.com
 
   ServerlessOpsProdTraining:
     Type: "AWS::Route53::RecordSet"

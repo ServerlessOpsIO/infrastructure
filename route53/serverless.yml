@@ -16,5 +16,6 @@ provider:
   name: aws
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  region: "${opt:region, 'us-east-1'}"
 
 resources: ${file(./${self:provider.stage}.yml)}
