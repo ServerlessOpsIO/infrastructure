@@ -202,6 +202,192 @@ Resources:
       }
 
 
+  ### DEV3
+  OrganizationAccountAccessServerlessOpsDev3Policy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev3
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev3}:role/OrganizationAccountAccessRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev3UsersPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev3-Users
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev3}:role/OrganizationAccountAccessUserRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev3AdminsPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev3-Admins
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev3}:role/OrganizationAccountAccessAdminRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev3DeployPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev3-Deploy
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev3}:role/OrganizationAccountAccessDeployRole"
+          }
+        ]
+      }
+
+
+  ### DEV4
+  OrganizationAccountAccessServerlessOpsDev4Policy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev4
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev4}:role/OrganizationAccountAccessRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev4UsersPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev4-Users
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev4}:role/OrganizationAccountAccessUserRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev4AdminsPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev4-Admins
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev4}:role/OrganizationAccountAccessAdminRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev4DeployPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev4-Deploy
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev4}:role/OrganizationAccountAccessDeployRole"
+          }
+        ]
+      }
+
+
+  ### DEV5
+  OrganizationAccountAccessServerlessOpsDev5Policy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev5
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev5}:role/OrganizationAccountAccessRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev5UsersPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev5-Users
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev5}:role/OrganizationAccountAccessUserRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev5AdminsPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev5-Admins
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev5}:role/OrganizationAccountAccessAdminRole"
+          }
+        ]
+      }
+
+  OrganizationAccountAccessServerlessOpsDev5DeployPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: OrganizationAccountAccess-serverlessops-training-dev5-Deploy
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:assumeRole",
+            "Resource": "arn:aws:iam::${self:custom.training_account_number_dev5}:role/OrganizationAccountAccessDeployRole"
+          }
+        ]
+      }
+
+
   ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -359,6 +545,93 @@ Outputs:
       Ref: OrganizationAccountAccessServerlessOpsDev2DeployPolicy
     Export:
       Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev2DeployPolicyArn
+
+  ### DEV3
+  OrganizationAccountAccessServerlessOpsDev3PolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev3Policy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev3PolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev3UsersPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev3UsersPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev3UsersPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev3AdminPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev3AdminsPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev3AdminPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev3DeployPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev3DeployPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev3DeployPolicyArn
+
+  ### DEV4
+  OrganizationAccountAccessServerlessOpsDev4PolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev4Policy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev4PolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev4UsersPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev4UsersPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev4UsersPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev4AdminPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev4AdminsPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev4AdminPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev4DeployPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev4DeployPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev4DeployPolicyArn
+
+  ### DEV5
+  OrganizationAccountAccessServerlessOpsDev5PolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev5Policy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev5PolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev5UsersPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev5UsersPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev5UsersPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev5AdminPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev5AdminsPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev5AdminPolicyArn
+
+  OrganizationAccountAccessServerlessOpsDev5DeployPolicyArn:
+    Description: Policy ARN
+    Value:
+      Ref: OrganizationAccountAccessServerlessOpsDev5DeployPolicy
+    Export:
+      Name: ${self:service}-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev5DeployPolicyArn
 
   ### PROD
   OrganizationAccountAccessServerlessOpsProdPolicyArn:

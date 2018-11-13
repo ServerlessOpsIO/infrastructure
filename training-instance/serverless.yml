@@ -23,6 +23,15 @@ custom:
     #access_key: "${cf:iam-users-dev1-${self:provider.stage}.${self:custom.user.name}AccessKey}"
     #secret_key: "${cf:iam-users-dev1-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
     #training_org: training-dev1
+    #access_key: "${cf:iam-users-dev2-${self:provider.stage}.${self:custom.user.name}AccessKey}"
+    #secret_key: "${cf:iam-users-dev2-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
+    #training_org: training-dev2
+    #access_key: "${cf:iam-users-dev3-${self:provider.stage}.${self:custom.user.name}AccessKey}"
+    #secret_key: "${cf:iam-users-dev3-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
+    #training_org: training-dev3
+    #access_key: "${cf:iam-users-dev4-${self:provider.stage}.${self:custom.user.name}AccessKey}"
+    #secret_key: "${cf:iam-users-dev4-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
+    #training_org: training-dev4
     password: ${env:PASSWORD, ''}
   docker_image: 227071656313.dkr.ecr.us-east-2.amazonaws.com/serverlessops-training:latest
   instance:

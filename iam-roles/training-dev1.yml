@@ -50,7 +50,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonCognitoReadOnly
         - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
-        - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsReadOnlyAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSQSReadOnlyAccess

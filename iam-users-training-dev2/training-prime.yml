@@ -1,0 +1,543 @@
+Resources:
+  user21:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user21
+
+  user21AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user21
+
+  user22:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user22
+
+  user22AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user22
+
+  user23:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user23
+
+  user23AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user23
+
+  user24:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user24
+
+  user24AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user24
+
+  user25:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user25
+
+  user25AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user25
+
+  user26:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user26
+
+  user26AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user26
+
+  user27:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user27
+
+  user27AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user27
+
+  user28:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user28
+
+  user28AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user28
+
+  user29:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user29
+
+  user29AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user29
+
+  user30:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - DevUsers
+        - ProdUsers
+        - PrimeUsers
+      UserName: user30
+
+  user30AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user30
+
+  user31:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user31
+
+  user31AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user31
+
+  user32:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user32
+
+  user32AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user32
+
+  user33:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user33
+
+  user33AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user33
+
+  user34:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user34
+
+  user34AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user34
+
+  user35:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user35
+
+  user35AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user35
+
+  user36:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user36
+
+  user36AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user36
+
+  user37:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user37
+
+  user37AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user37
+
+  user38:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user38
+
+  user38AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user38
+
+  user39:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user39
+
+  user39AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user39
+
+  user40:
+    Type: "AWS::IAM::User"
+    Properties:
+      Groups:
+        - Devusers
+        - Produsers
+        - PrimeUsers
+      UserName: user40
+
+  user40AccessKey:
+    Type: "AWS::IAM::AccessKey"
+    Properties:
+      UserName:
+        Ref: user40
+
+
+Outputs:
+  user21AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user21AccessKey
+
+  user21SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user21AccessKey
+        - SecretAccessKey
+
+  user22AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user22AccessKey
+
+  user22SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user22AccessKey
+        - SecretAccessKey
+
+  user23AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user23AccessKey
+
+  user23SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user23AccessKey
+        - SecretAccessKey
+
+  user24AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user24AccessKey
+
+  user24SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user24AccessKey
+        - SecretAccessKey
+
+  user25AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user25AccessKey
+
+  user25SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user25AccessKey
+        - SecretAccessKey
+
+  user26AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user26AccessKey
+
+  user26SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user26AccessKey
+        - SecretAccessKey
+
+  user27AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user27AccessKey
+
+  user27SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user27AccessKey
+        - SecretAccessKey
+
+  user28AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user28AccessKey
+
+  user28SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user28AccessKey
+        - SecretAccessKey
+
+  user29AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user29AccessKey
+
+  user29SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user29AccessKey
+        - SecretAccessKey
+
+  user30AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user30AccessKey
+
+  user30SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user30AccessKey
+        - SecretAccessKey
+
+  user31AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user31AccessKey
+
+  user31SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user31AccessKey
+        - SecretAccessKey
+
+  user32AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user32AccessKey
+
+  user32SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user32AccessKey
+        - SecretAccessKey
+
+  user33AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user33AccessKey
+
+  user33SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user33AccessKey
+        - SecretAccessKey
+
+  user34AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user34AccessKey
+
+  user34SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user34AccessKey
+        - SecretAccessKey
+
+  user35AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user35AccessKey
+
+  user35SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user35AccessKey
+        - SecretAccessKey
+
+  user36AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user36AccessKey
+
+  user36SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user36AccessKey
+        - SecretAccessKey
+
+  user37AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user37AccessKey
+
+  user37SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user37AccessKey
+        - SecretAccessKey
+
+  user38AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user38AccessKey
+
+  user38SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user38AccessKey
+        - SecretAccessKey
+
+  user39AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user39AccessKey
+
+  user39SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user39AccessKey
+        - SecretAccessKey
+
+  user40AccessKey:
+    Description: "AWS access key"
+    Value:
+      Ref: user40AccessKey
+
+  user40SecretAccessKey:
+    Description: "AWS secret access key"
+    Value:
+      Fn::GetAtt:
+        - user40AccessKey
+        - SecretAccessKey
+

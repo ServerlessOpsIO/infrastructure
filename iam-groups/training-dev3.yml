@@ -1,0 +1,8 @@
+Resources:
+  # CI/CD deployment
+  Deploy:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: Deploy
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess

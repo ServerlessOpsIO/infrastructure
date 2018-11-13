@@ -5,30 +5,20 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service: iam-policies
-
-
-custom:
-  account_number_dev: '355364402302'
-  account_number_prod: '641494176294'
-  training_account_number_prime: '227071656313'
-  training_account_number_dev: '144121712529'
-  training_account_number_dev1: '659978417268'
-  training_account_number_dev2: '795595179056'
-  training_account_number_dev3: '329331087603'
-  training_account_number_dev4: '256634346019'
-  training_account_number_dev5: '671580153075'
-  training_account_number_prod: '820506766567'
-
+service: iam-users-training-dev3
 
 # NOTE: Password policy cannot be set with CFN resources. One day maybe
 # investigate the following:
 # https://github.com/widdix/aws-cf-templates/blob/master/security/account-password-policy.yaml
+
+# FIXME: How do we remove users? By default the resources are retained in the
+# stack.
 
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
   stage: ${opt:stage, env:SLS_STAGE, 'dev'}
   profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  region: ${opt:region, 'us-east-2'}
 
 resources: ${file(./${self:provider.stage}.yml)}

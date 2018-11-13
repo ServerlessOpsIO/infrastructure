@@ -1,0 +1,36 @@
+Resources:
+  # When creating a new subdomain you must update the parent domain with an NS
+  # record and the values from this domain.
+  ServerlessOpsDev:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "dev5.training.serverlessops.io"
+      HostedZoneConfig:
+        Comment: ServerlessOps - Training Dev
+
+  ServerlessOpsDomainSsmParam:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/${self:service}/${self:provider.stage}/ServerlessOpsDomain"
+      Type: String
+      Value: "dev5.training.serverlessops.io"
+
+Outputs:
+  ServerlessOpsDevNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOpsDev
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsDevNameServers
+
+  ServerlessOpsDevSsmParam:
+    Description: SSM Param store domain value key
+    Value:
+      Ref: ServerlessOpsDomainSsmParam
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsDomainSsmParam
+

@@ -21,6 +21,9 @@ Resources:
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDevUsersPolicyArn
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev1UsersPolicyArn
         - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev2UsersPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev3UsersPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev4UsersPolicyArn
+        - Fn::ImportValue: iam-policies-${self:provider.stage}-OrganizationAccountAccessServerlessOpsDev5UsersPolicyArn
 
   DevAdmins:
     Type: "AWS::IAM::Group"
