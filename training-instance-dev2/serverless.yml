@@ -1,0 +1,93 @@
+service: training-instance-${self:custom.user.name}
+
+#plugins:
+#  - serverless-cloudformation-sub-variables
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  profile: ${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}
+  region: ${opt:region, 'us-east-2'}
+  stackTags:
+    x-service: ${self:service}
+    x-stack: ${self:service}-${self:provider.stage}
+
+custom:
+  dns_zone: training.serverlessops.io
+  user:
+    name: ${env:USER, ''}
+    access_key: "${cf:iam-users-training-dev2-${self:provider.stage}.${self:custom.user.name}AccessKey}"
+    secret_key: "${cf:iam-users-training-dev2-${self:provider.stage}.${self:custom.user.name}SecretAccessKey}"
+    training_org: training-dev2
+    password: ${env:PASSWORD, ''}
+  docker_image: 227071656313.dkr.ecr.us-east-2.amazonaws.com/serverlessops-training:latest
+  instance:
+    hostname: "${self:custom.user.name}.${self:custom.dns_zone}"
+    ami: ami-0303c7b2e7066b60d
+    subnet: "${ssm:/vpc-training/${self:provider.stage}/PublicSubnet1Id}"
+    security_groups:
+      - "${ssm:/vpc-training/${self:provider.stage}/SshSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/WebEgressSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/AwsApiSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/GithubSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/NpmSecurityGroupId}"
+      - "${ssm:/vpc-training/${self:provider.stage}/PypiSecurityGroupId}"
+
+
+resources:
+  Resources:
+    Ec2Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        ImageId: "${self:custom.instance.ami}"
+        InstanceType: t2.nano
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: "true"
+            DeviceIndex: "0"
+            # Next two need to be updated
+            GroupSet: "${self:custom.instance.security_groups}"
+            SubnetId: "${self:custom.instance.subnet}"
+        UserData:
+          Fn::Base64: |
+            #!/bin/sh
+            hostname "${self:custom.instance.hostname}"
+            yum update -y
+            yum install -y  docker
+            echo ec2-user:${self:custom.user.password} | chpasswd
+            usermod -a -G docker ec2-user
+            systemctl restart docker
+            sudo -u ec2-user docker pull "${self:custom.docker_image}"
+            sed -i.bak 's,PasswordAuthentication.*,PasswordAuthentication yes,' /etc/ssh/sshd_config
+            systemctl restart sshd
+            echo "SLS_STAGE=${self:custom.user.name}" >> /home/ec2-user/.bash_profile
+            echo "AWS_ACCESS_KEY_ID=${self:custom.user.access_key}" >> /home/ec2-user/.bash_profile
+            echo "aws configure set aws_access_key_id \$AWS_ACCESS_KEY_ID" >> /home/ec2-user/.bash_profile
+            echo "AWS_SECRET_ACCESS_KEY=${self:custom.user.secret_key}" >> /home/ec2-user/.bash_profile
+            echo "aws configure set aws_secret_access_key \$AWS_SECRET_ACCESS_KEY" >> /home/ec2-user/.bash_profile
+            echo "TRAINING_ORG=${self:custom.user.training_org}" >> /home/ec2-user/.bash_profile
+            echo "\$(aws ecr get-login --no-include-email --region ${self:provider.region})" >> /home/ec2-user/.bash_profile
+            echo "alias workshop='docker run -ti -e TRAINING_ORG=\$TRAINING_ORG -e SLS_STAGE=\$SLS_STAGE -e AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_ACCESS_KEY --rm ${self:custom.docker_image}'" >> /home/ec2-user/.bash_profile
+            sed -i'' 's,^EOF,\n\nVisit the ServerlessOps workshop at:\n\https://github.com/ServerlessOpsIO/serverlessops-workshops\n\nEOF,' /etc/update-motd.d/30-banner
+            sed -i'' 's,^EOF,\n\nTo start the workshop run the following command:\n\$ workshop\n\nEOF,' /etc/update-motd.d/30-banner
+            update-motd
+
+    DnsRecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneName: ${self:custom.dns_zone}.
+        Name: ${self:custom.instance.hostname}
+        Type: CNAME
+        TTL: '300'
+        ResourceRecords:
+          - Fn::GetAtt:
+            - Ec2Instance
+            - PublicDnsName
+
+  Outputs:
+    DnsName:
+      Description: Instance DNS Name
+      Value: ${self:custom.instance.hostname}
+      Export:
+        Name: "${self:service}-${self:provider.stage}-DnsName"
+
