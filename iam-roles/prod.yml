@@ -42,6 +42,21 @@ Resources:
         - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
         - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
 
+  CloudFormationDeployRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: CloudFormationDeployRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "cloudformation.amazonaws.com"
+            Action: "sts:AssumeRole"
+      # XXX: This is lax but at least everything is in a CFN stack.
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
     Properties:
