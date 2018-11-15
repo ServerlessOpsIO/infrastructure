@@ -8,6 +8,13 @@ Resources:
       HostedZoneConfig:
         Comment: ServerlessOps - Training Prod
 
+  ServerlessOpsDomainSsmParam:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/${self:service}/root/ServerlessOpsDomain"
+      Type: String
+      Value: "prod.training.serverlessops.io"
+
 Outputs:
   ServerlessOpsProdvNameServers:
     Description: Hosted zone name servers

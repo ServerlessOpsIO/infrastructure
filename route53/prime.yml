@@ -32,7 +32,7 @@ Resources:
   ServerlessOpsDomainSsmParam:
     Type: "AWS::SSM::Parameter"
     Properties:
-      Name: "/${self:service}/${self:provider.stage}/ServerlessOpsDomain"
+      Name: "/${self:service}/root/ServerlessOpsDomain"
       Type: String
       Value: "serverlessops.io"
 
