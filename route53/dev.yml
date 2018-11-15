@@ -8,6 +8,13 @@ Resources:
       HostedZoneConfig:
         Comment: ServerlessOps - Dev
 
+  ServerlessOpsDomainSsmParam:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/${self:service}/${self:provider.stage}/ServerlessOpsDomain"
+      Type: String
+      Value: "dev.serverlessops.io"
+
 Outputs:
   ServerlessOpsDevNameServers:
     Description: Hosted zone name servers
