@@ -82,6 +82,16 @@ Resources:
               - Effect: "Allow"
                 Action: "lambda:InvokeFunction"
                 Resource: "*"
+        - PolicyName: "KmsRead"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "kms:List*"
+                  - "kms:Describe*"
+                Resource: "*"
+
 
   CloudFormationDeployRole:
     Type: "AWS::IAM::Role"
