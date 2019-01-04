@@ -1,0 +1,119 @@
+service: kms
+
+custom:
+  master_key_alias: "alias/serverlessops/master"
+
+provider:
+  name: aws
+  stage: ${opt:stage, env:SLS_STAGE, 'dev'}
+  region: "${opt:region, 'us-east-1'}"
+
+resources:
+  Resources:
+    ServerlessOpsMasterKey:
+      Type: AWS::KMS::Key
+      Properties:
+        Description: "Standard KMS key for environment"
+        KeyPolicy: {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Enable IAM User Permissions",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::144121712529:root"
+              },
+                "Action": "kms:*",
+                "Resource": "*"
+            },
+            {
+              "Sid": "Allow access for Key Administrators",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::144121712529:role/OrganizationAccountAccessAdminRole"
+              },
+              "Action": [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:TagResource",
+                "kms:UntagResource",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion"
+              ],
+              "Resource": "*"
+          },
+          {
+            "Sid": "Allow use of the key",
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::144121712529:role/OrganizationAccountAccessAdminRole"
+            },
+            "Action": [
+              "kms:Encrypt",
+              "kms:Decrypt",
+              "kms:ReEncrypt*",
+              "kms:GenerateDataKey*",
+              "kms:DescribeKey"
+            ],
+            "Resource": "*"
+          },
+          {
+            "Sid": "Allow attachment of persistent resources",
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::144121712529:role/OrganizationAccountAccessAdminRole"
+            },
+            "Action": [
+              "kms:CreateGrant",
+              "kms:ListGrants",
+              "kms:RevokeGrant"
+            ],
+            "Resource": "*",
+            "Condition": {
+              "Bool": {
+                "kms:GrantIsForAWSResource": "true"
+              }
+            }
+          },
+          {
+            "Sid": "Encryption usage",
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::144121712529:role/OrganizationAccountAccessUserRole"
+            },
+            "Action": [
+              "kms:Encrypt",
+              "kms:ReEncrypt*",
+              "kms:GenerateDataKey*",
+              "kms:DescribeKey"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+
+    ServerlessOpsMasterKeyAlias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: "${self:custom.master_key_alias}"
+        TargetKeyId:
+          Ref: ServerlessOpsMasterKey
+
+    ServerlessOpsMasterKeySsmParam:
+      Type: "AWS::SSM::Parameter"
+      Properties:
+        Name: "/infra/${self:service}/prime/${self:custom.master_key_alias}/Arn"
+        Type: String
+        Value:
+          Fn::GetAtt:
+            - ServerlessOpsMasterKey
+            - Arn
+
