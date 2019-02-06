@@ -1,0 +1,456 @@
+service: vpc
+
+plugins:
+  - serverless-cloudformation-sub-variables
+  - serverless-parameters
+
+
+provider:
+  name: aws
+  stage: "${opt:stage, env:SLS_STAGE, 'dev'}"
+  profile: "${opt:aws-profile, env:AWS_PROFILE, env:AWS_DEFAULT_PROFILE, 'default'}"
+  stackTags:
+    x-service: "${self:service}"
+    x-stack: "${self:service}-${self:provider.stage}"
+
+
+custom:
+  parameters:
+    EnableNatGateway:
+      Type: String
+      AllowedValues:
+        - yes
+        - no
+      Default: "${env:PARAM_ENABLE_NAT_GATEWAY, 'no'}"
+      Description: "Enable NAT Gateway for private subnets"
+
+  ssm_param_prefix: '/infra/${self:service}/prime'
+
+  vpc:
+    cidr: 10.1.0.0/16
+    private:
+      subnet1: 10.1.0.0/20
+      subnet2: 10.1.16.0/20
+      subnet3: 10.1.32.0/20
+    public:
+      subnet1: 10.1.255.0/26
+      subnet2: 10.1.255.64/26
+      subnet3: 10.1.255.128/26
+
+
+resources:
+
+  Conditions:
+    NatGatewayEnabled:
+      Fn::Equals:
+        - Ref: EnableNatGateway
+        - yes
+
+  Resources:
+    Vpc:
+      Type: 'AWS::EC2::VPC'
+      Properties:
+        CidrBlock: "${self:custom.vpc.cidr}"
+        EnableDnsHostnames: true
+        EnableDnsSupport: true
+
+    InternetGateway:
+      Type: 'AWS::EC2::InternetGateway'
+
+    InternetGatewayAttachment:
+      Type: 'AWS::EC2::VPCGatewayAttachment'
+      Properties:
+        InternetGatewayId:
+          Ref: InternetGateway
+        VpcId:
+          Ref: Vpc
+
+    PublicRouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: Vpc
+
+    DefaultPublicRoute:
+      Type: 'AWS::EC2::Route'
+      DependsOn: InternetGatewayAttachment
+      Properties:
+        RouteTableId:
+          Ref: PublicRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId:
+          Ref: InternetGateway
+
+    PrivateSubnet1:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 0
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.private.subnet1}"
+        MapPublicIpOnLaunch: false
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Private Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 0
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 0
+                - Fn::GetAZs: ""
+
+    PrivateSubnet1RouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: Vpc
+
+    PrivateSubnet1RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet1RouteTable
+        SubnetId:
+          Ref: PrivateSubnet1
+
+    PrivateSubnet1NatEip:
+      Type: 'AWS::EC2::EIP'
+      Condition: NatGatewayEnabled
+      Properties:
+        Domain: vpc
+
+    PrivateSubnet1NatGateway:
+      Type: 'AWS::EC2::NatGateway'
+      DependsOn: InternetGatewayAttachment
+      Condition: NatGatewayEnabled
+      Properties:
+        AllocationId:
+          Fn::GetAtt:
+          - PrivateSubnet1NatEip
+          - AllocationId
+        SubnetId:
+          Ref: PrivateSubnet1
+
+    PrivateSubnet1DefaultRoute:
+      Type: 'AWS::EC2::Route'
+      Condition: NatGatewayEnabled
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet1RouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        NatGatewayId:
+          Ref: PrivateSubnet1NatGateway
+
+    PublicSubnet1:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 0
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.public.subnet1}"
+        MapPublicIpOnLaunch: true
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Public Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 0
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 0
+                - Fn::GetAZs: ""
+
+    PublicSubnet1RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PublicRouteTable
+        SubnetId:
+          Ref: PublicSubnet1
+
+    PrivateSubnet2:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 1
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.private.subnet2}"
+        MapPublicIpOnLaunch: false
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Private Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 1
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 1
+                - Fn::GetAZs: ""
+
+    PrivateSubnet2RouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: Vpc
+
+    PrivateSubnet2RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet2RouteTable
+        SubnetId:
+          Ref: PrivateSubnet2
+
+    PrivateSubnet2NatEip:
+      Type: 'AWS::EC2::EIP'
+      Condition: NatGatewayEnabled
+      Properties:
+        Domain: vpc
+
+    PrivateSubnet2NatGateway:
+      Type: 'AWS::EC2::NatGateway'
+      DependsOn: InternetGatewayAttachment
+      Condition: NatGatewayEnabled
+      Properties:
+        AllocationId:
+          Fn::GetAtt:
+          - PrivateSubnet2NatEip
+          - AllocationId
+        SubnetId:
+          Ref: PrivateSubnet2
+
+    PrivateSubnet2DefaultRoute:
+      Type: 'AWS::EC2::Route'
+      Condition: NatGatewayEnabled
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet2RouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        NatGatewayId:
+          Ref: PrivateSubnet2NatGateway
+
+    PublicSubnet2:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 1
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.public.subnet2}"
+        MapPublicIpOnLaunch: true
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Public Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 1
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 1
+                - Fn::GetAZs: ""
+
+    PublicSubnet2RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PublicRouteTable
+        SubnetId:
+          Ref: PublicSubnet2
+
+    PrivateSubnet3:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 2
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.private.subnet3}"
+        MapPublicIpOnLaunch: false
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Private Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 2
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 2
+                - Fn::GetAZs: ""
+
+    PrivateSubnet3RouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: Vpc
+
+    PrivateSubnet3RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet3RouteTable
+        SubnetId:
+          Ref: PrivateSubnet3
+
+    PrivateSubnet3NatEip:
+      Type: 'AWS::EC2::EIP'
+      Condition: NatGatewayEnabled
+      Properties:
+        Domain: vpc
+
+    PrivateSubnet3NatGateway:
+      Type: 'AWS::EC2::NatGateway'
+      DependsOn: InternetGatewayAttachment
+      Condition: NatGatewayEnabled
+      Properties:
+        AllocationId:
+          Fn::GetAtt:
+          - PrivateSubnet3NatEip
+          - AllocationId
+        SubnetId:
+          Ref: PrivateSubnet3
+
+    PrivateSubnet3DefaultRoute:
+      Type: 'AWS::EC2::Route'
+      Condition: NatGatewayEnabled
+      Properties:
+        RouteTableId:
+          Ref: PrivateSubnet3RouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        NatGatewayId:
+          Ref: PrivateSubnet3NatGateway
+
+    PublicSubnet3:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: Vpc
+        AvailabilityZone:
+          Fn::Select:
+            - 2
+            - Fn::GetAZs: ""
+        CidrBlock: "${self:custom.vpc.public.subnet3}"
+        MapPublicIpOnLaunch: true
+        Tags:
+          - Key: Name
+            Value:
+              Fn::Sub:
+                - 'Public Subnet (AZ - #{AZ})'
+                - AZ:
+                    Fn::Select:
+                      - 2
+                      - Fn::GetAZs: ""
+          - Key: AZ
+            Value:
+              Fn::Select:
+                - 2
+                - Fn::GetAZs: ""
+
+    PublicSubnet3RouteTableAssociation:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        RouteTableId:
+          Ref: PublicRouteTable
+        SubnetId:
+          Ref: PublicSubnet3
+
+    AzListSsmParam:
+      Type: 'AWS::SSM::Parameter'
+      Properties:
+        Description: 'VPC AZs'
+        Name: "${self:custom.ssm_param_prefix}/AzList"
+        Type: StringList
+        Value:
+          Fn::Join:
+            - ','
+            - - Fn::Select:
+                - 0
+                - Fn::GetAZs: ""
+              - Fn::Select:
+                - 1
+                - Fn::GetAZs: ""
+              - Fn::Select:
+                - 2
+                - Fn::GetAZs: ""
+
+    VpcPrivateSubnetListSsmParam:
+      Type: 'AWS::SSM::Parameter'
+      Properties:
+        Name: "${self:custom.ssm_param_prefix}/VpcPrivateSubnetList"
+        Description: 'List of VPC private subnets'
+        Type: StringList
+        Value:
+          Fn::Join:
+            - ','
+            - - Ref: PrivateSubnet1
+              - Ref: PrivateSubnet2
+              - Ref: PrivateSubnet3
+
+    VpcPublicSubnetListSsmParam:
+      Type: 'AWS::SSM::Parameter'
+      Properties:
+        Name: "${self:custom.ssm_param_prefix}/VpcPublicSubnetList"
+        Description: 'List of VPC public subnets'
+        Type: StringList
+        Value:
+          Fn::Join:
+            - ','
+            - - Ref: PublicSubnet1
+              - Ref: PublicSubnet2
+              - Ref: PublicSubnet3
+
+    VpcDefaultSecurityGroupSsmParam:
+      Type: 'AWS::SSM::Parameter'
+      Properties:
+        Name: "${self:custom.ssm_param_prefix}/VpcDefaultSecurityGroup"
+        Description: 'VPC default security group ID'
+        Type: String
+        Value:
+          Fn::GetAtt:
+            - Vpc
+            - DefaultSecurityGroup
+
+
+  Outputs:
+    DefaultSecurityGroup:
+      Description: 'Default security group ID'
+      Value:
+        Fn::GetAtt:
+          - Vpc
+          - DefaultSecurityGroup
+      Export:
+        Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroup"
+

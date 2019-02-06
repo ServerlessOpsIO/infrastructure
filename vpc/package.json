@@ -1,0 +1,10 @@
+{
+  "name": "vpc",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-cloudformation-sub-variables": "^0.2.0",
+    "serverless-parameters": "0.0.7"
+  }
+}
