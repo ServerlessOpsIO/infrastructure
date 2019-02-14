@@ -1,0 +1,83 @@
+service: deploy
+
+provider:
+  name: aws
+  stage: "${opt:stage, env:SLS_STAGE, 'dev'}"
+  stackTags:
+    x-service: "${self:service}"
+    x-stack: "${self:service}-${self:provider.stage}"
+
+resources:
+  Resources:
+
+    CloudFormationDeployRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        RoleName: CloudFormationDeployRole
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Service: "cloudformation.amazonaws.com"
+              Action: "sts:AssumeRole"
+        # XXX: This is lax but at least everything is in a CFN stack.
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/AdministratorAccess
+
+    CloudFormationDeployPolicy:
+      Type: "AWS::IAM::ManagedPolicy"
+      Properties:
+        Description: "Grant ability to perform CloudFormation deploys."
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action: "sts:assumeRole"
+              Resource:
+                Fn::GetAtt:
+                  - CloudFormationDeployRole
+                  - Arn
+            - Effect: "Allow"
+              Action: "CloudFormation:*"
+              Resource: "*"
+            - Effect: "Allow"
+              Action: "iam:PassRole"
+              Resource:
+                Fn::GetAtt:
+                  - CloudFormationDeployRole
+                  - Arn
+            - Effect: "Allow"
+              Action:
+                - "kms:List*"
+                - "kms:Describe*"
+              Resource: "*"
+
+    DeployGroup:
+      Type: "AWS::IAM::Group"
+      Properties:
+        GroupName: Deploy
+        ManagedPolicyArns:
+          - Ref: CloudFormationDeployPolicy
+          - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
+          - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
+          - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+    DeployUser:
+      Type: "AWS::IAM::User"
+      Properties:
+        Groups:
+          - Ref: DeployGroup
+        UserName:
+          deploy
+
+    DeployRoleArnSsmParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "/infra/deploy/prime/DeployRoleArn"
+        Description: "Deployment role ARN"
+        Type: String
+        Value:
+          Fn::GetAtt:
+            - CloudFormationDeployRole
+            - Arn
