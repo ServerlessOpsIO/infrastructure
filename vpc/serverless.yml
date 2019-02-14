@@ -443,6 +443,14 @@ resources:
             - Vpc
             - DefaultSecurityGroup
 
+    VpcIdSsmParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: "${self:custom.ssm_param_prefix}/VpcId"
+        Description: "VPC ID"
+        Type: String
+        Value:
+          Ref: Vpc
 
   Outputs:
     DefaultSecurityGroup:
