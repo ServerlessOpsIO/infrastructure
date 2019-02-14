@@ -85,19 +85,19 @@ resources:
             CidrBlock: "${self:custom.vpc.public.subnet1}"
             MapPublicIpOnLaunch: true
             Tags:
-                - Key: Name
-                  Value:
-                    Fn::Sub:
-                      - "Public Subnet (AZ - #{AZ})"
-                      - AZ:
-                          Fn::Select:
-                            - 0
-                            - Fn::GetAZs: ""
-                - Key: AZ
-                  Value:
-                    Fn::Select:
-                      - 0
-                      - Fn::GetAZs: ""
+              - Key: Name
+                Value:
+                  Fn::Sub:
+                    - "Public Subnet (AZ - #{AZ})"
+                    - AZ:
+                        Fn::Select:
+                          - 0
+                          - Fn::GetAZs: ""
+              - Key: AZ
+                Value:
+                  Fn::Select:
+                    - 0
+                    - Fn::GetAZs: ""
 
     PublicSubnet1RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
@@ -119,19 +119,19 @@ resources:
             CidrBlock: "${self:custom.vpc.public.subnet2}"
             MapPublicIpOnLaunch: true
             Tags:
-                - Key: Name
-                  Value:
-                    Fn::Sub:
-                      - "Public Subnet (AZ - #{AZ})"
-                      - AZ:
-                          Fn::Select:
-                            - 1
-                            - Fn::GetAZs: ""
-                - Key: AZ
-                  Value:
-                    Fn::Select:
-                      - 1
-                      - Fn::GetAZs: ""
+              - Key: Name
+                Value:
+                  Fn::Sub:
+                    - "Public Subnet (AZ - #{AZ})"
+                    - AZ:
+                        Fn::Select:
+                          - 1
+                          - Fn::GetAZs: ""
+              - Key: AZ
+                Value:
+                  Fn::Select:
+                    - 1
+                    - Fn::GetAZs: ""
 
     PublicSubnet2RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
@@ -153,19 +153,19 @@ resources:
             CidrBlock: "${self:custom.vpc.public.subnet3}"
             MapPublicIpOnLaunch: true
             Tags:
-                - Key: Name
-                  Value:
-                    Fn::Sub:
-                      - "Public Subnet (AZ - #{AZ})"
-                      - AZ:
-                          Fn::Select:
-                            - 2
-                            - Fn::GetAZs: ""
-                - Key: AZ
-                  Value:
-                    Fn::Select:
-                      - 2
-                      - Fn::GetAZs: ""
+              - Key: Name
+                Value:
+                  Fn::Sub:
+                    - "Public Subnet (AZ - #{AZ})"
+                    - AZ:
+                        Fn::Select:
+                          - 2
+                          - Fn::GetAZs: ""
+              - Key: AZ
+                Value:
+                  Fn::Select:
+                    - 2
+                    - Fn::GetAZs: ""
 
     PublicSubnet3RouteTableAssociation:
         Type: AWS::EC2::SubnetRouteTableAssociation
@@ -230,3 +230,4 @@ resources:
           - DefaultSecurityGroup
       Export:
         Name: "${self:service}-${self:provider.stage}-DefaultSecurityGroup"
+
