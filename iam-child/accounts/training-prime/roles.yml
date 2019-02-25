@@ -1,0 +1,56 @@
+Parameters:
+  TrustedAccountId:
+    Type: Number
+    Description: "Account ID of trusted account to grant role access"
+
+  RoleNamePrefix:
+    Type: String
+    Description: "IAM role name prefix"
+
+  InitDeploy:
+    Type: String
+    Description: "Whether this is an initial deployment or not."
+
+Conditions:
+  IsNotInitDeploy:
+    Fn::Equals:
+      - Ref: InitDeploy
+      - false
+
+
+Resources:
+  OrganizationAccountAccessRole:
+    Type: "AWS::IAM::Role"
+    # Let's not lock us out the org.
+    DeletionPolicy: Retain
+    Condition: IsNotInitDeploy
+    Properties:
+      RoleName:
+        Fn::Sub: "${RoleNamePrefix}AccessRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              AWS:
+                Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  OrganizationAccountAccessAdminRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName:
+        Fn::Sub: "${RoleNamePrefix}AccessAdminRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              AWS:
+                Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+

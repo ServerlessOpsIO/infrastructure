@@ -1,0 +1,35 @@
+Resources:
+  PrimeAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: PrimeAdmins
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  PrimeUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: PrimeUsers
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+
+  DevUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevUsers
+
+  DevAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevAdmins
+
+  ProdUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdUsers
+
+  ProdAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdAdmins
+

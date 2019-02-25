@@ -1,0 +1,48 @@
+Parameters:
+  AccountName:
+    Type: String
+    Description: "Name of AWS child account"
+
+  AccountId:
+    Type: Number
+    Description: "AWS account ID"
+
+  UsersGroupName:
+    Type: String
+    Description: "Name of IAM group for user access to child account"
+
+  AdminsGroupName:
+    Type: String
+    Description: "Name of IAM group for admin access to child account"
+
+Resources:
+  OrganizationAccountAccessUserPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName:
+        Fn::Sub: "OrganizationAccountAccess-${AccountName}-User"
+      Groups:
+        - Ref: UsersGroupName
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action: "sts:assumeRole"
+            Resource:
+              Fn::Sub: "arn:aws:iam::${AccountId}:role/OrganizationAccountAccessUserRole"
+
+  OrganizationAccountAccessAdminPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName:
+        Fn::Sub: "OrganizationAccountAccess-${AccountName}-Admin"
+      Groups:
+        - Ref: AdminsGroupName
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action: "sts:assumeRole"
+            Resource:
+              Fn::Sub: "arn:aws:iam::${AccountId}:role/OrganizationAccountAccessAdminRole"
+

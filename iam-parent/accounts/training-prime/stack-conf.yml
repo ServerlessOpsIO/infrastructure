@@ -1,0 +1,70 @@
+---
+- id: Groups
+  template: 'groups.yml'
+
+- id: AccessTrainingDev
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev"
+      AccountId: "144121712529"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingDev1
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev1"
+      AccountId: "659978417268"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingDev2
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev2"
+      AccountId: "795595179056"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingDev3
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev3"
+      AccountId: "329331087603"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingDev4
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev4"
+      AccountId: "256634346019"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingDev5
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingDev5"
+      AccountId: "671580153075"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+- id: AccessTrainingProd
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "TrainingProd"
+      AccountId: "820506766567"
+      UsersGroupName: "DevUsers"
+      AdminsGroupName: "DevAdmins"
+
+
+
+
