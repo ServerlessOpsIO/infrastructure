@@ -1,0 +1,10 @@
+{
+  "name": "iam-parent",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-aws-nested-stacks": "^0.1.2",
+    "serverless-parameters": "0.0.7"
+  }
+}

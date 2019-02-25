@@ -1,0 +1,66 @@
+Resources:
+  PrimeAdmins:
+    Type: "AWS::IAM::Group"
+    DeletionPolicy: Retain
+    Properties:
+      GroupName: PrimeAdmins
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  PrimePowerUsers:
+    Type: "AWS::IAM::Group"
+    DeletionPolicy: Retain
+    Properties:
+      GroupName: PrimePowerUsers
+      # These managed policies may grant permissions to other services in
+      # addition to the on es names.
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationReadOnlyAccess
+        - arn:aws:iam::aws:policy/CloudWatchEventsFullAccess
+        - arn:aws:iam::aws:policy/AWSCloudTrailFullAccess
+        - arn:aws:iam::aws:policy/job-function/Billing
+
+  PrimeUsers:
+    Type: "AWS::IAM::Group"
+    DeletionPolicy: Retain
+    Properties:
+      GroupName: PrimeUsers
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials
+        - arn:aws:iam::aws:policy/IAMUserChangePassword
+        - arn:aws:iam::aws:policy/IAMUserSSHKeys
+
+  DevUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevUsers
+
+  DevAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: DevAdmins
+
+  ProdUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdUsers
+
+  ProdAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: ProdAdmins
+
+  TrainingUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: TrainingUsers
+
+  TrainingAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: TrainingAdmins
+
+

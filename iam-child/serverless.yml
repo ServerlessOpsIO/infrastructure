@@ -1,0 +1,45 @@
+# Manage IAM users, groups, policies, and roles.
+service: iam-child
+
+plugins:
+  - serverless-parameters
+  - serverless-aws-nested-stacks
+
+
+custom:
+  stage: "${opt:stage, env:SLS_STAGE, 'dev'}"
+  log_level: "${env:LOG_LEVEL, 'INFO'}"
+
+  parameters:
+    PrimeAccountId:
+      Type: Number
+      Description: "Account ID of root organization account"
+      Default: "${env:PARAM_PRIME_ACCOUNT_ID, '349603509961'}"
+
+    ParentAccountId:
+      Type: Number
+      Description: "Account ID of parent organization account if different from RootAccountId"
+      Default: "${env:PARAM_PARENT_ACCOUNT_ID, '227071656313'}"
+
+    InitDeploy:
+      Type: String
+      Description: "Whether this is an initial deployment or not."
+      AllowedValues:
+        - true
+        - false
+      Default: "${env:INIT_DEPLOY, 'false'}"
+
+  nested-stacks:
+    location: "accounts/${self:custom.stage}"
+    stacks: "${file(./accounts/${self:custom.stage}/stack-conf.yml)}"
+
+
+provider:
+  name: aws
+  stage: "${self:custom.stage}"
+  stackTags:
+    x-service: "${self:service}"
+    x-stack: "${self:service}-${self:provider.stage}"
+
+
+

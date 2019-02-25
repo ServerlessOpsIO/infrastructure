@@ -1,0 +1,24 @@
+Resources:
+  tomAdmin:
+    Type: "AWS::IAM::User"
+    DeletionPolicy: Retain
+    Properties:
+      Groups:
+        - PrimeAdmins
+        - DevAdmins
+        - ProdAdmins
+        - TrainingAdmins
+      UserName: tom-admin
+
+  tom:
+    Type: "AWS::IAM::User"
+    DeletionPolicy: Retain
+    Properties:
+      Groups:
+        - PrimePowerUsers
+        - PrimeUsers
+        - DevUsers
+        - ProdUsers
+      UserName: tom
+
+
