@@ -1,0 +1,29 @@
+Resources:
+  # When creating a new subdomain you must update the parent domain with an NS
+  # record and the values from this domain.
+  ServerlessOpsDev:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      Name: "cicd.serverlessops.io"
+      HostedZoneConfig:
+        Comment: ServerlessOps - CI/CD
+
+  ServerlessOpsDomainSsmParam:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/${self:service}/root/ServerlessOpsDomain"
+      Type: String
+      Value: "cicd.serverlessops.io"
+
+Outputs:
+  ServerlessOpsDevNameServers:
+    Description: Hosted zone name servers
+    Value:
+      Fn::Join:
+        - ','
+        - Fn::GetAtt:
+          - ServerlessOpsDev
+          - NameServers
+    Export:
+      Name: ${self:service}-${self:provider.stage}-ServerlessOpsDevNameServers
+
