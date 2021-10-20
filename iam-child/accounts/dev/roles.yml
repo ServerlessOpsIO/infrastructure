@@ -127,6 +127,18 @@ Resources:
                   - "kms:List*"
                   - "kms:Describe*"
                 Resource: "*"
+        - PolicyName: "ApiGateway"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "apigateway:DELETE"
+                  - "apigateway:GET"
+                  - "apigateway:PATCH"
+                  - "apigateway:POST"
+                  - "apigateway:PUT"
+                Resource: "*"
 
 
   OrganizationAccountAccessAdminRole:
