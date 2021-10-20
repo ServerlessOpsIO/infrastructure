@@ -1,3 +1,5 @@
+# NOTE: We can paramaterize the domain name and HostedZone comment
+
 Resources:
   # When creating a new subdomain you must update the parent domain with an NS
   # record and the values from this domain.
@@ -11,7 +13,7 @@ Resources:
   ServerlessOpsDomainSsmParam:
     Type: "AWS::SSM::Parameter"
     Properties:
-      Name: "/${self:service}/root/ServerlessOpsDomain"
+      Name: "/infra/dns/prime/DomainName"
       Type: String
       Value: "dev5.training.serverlessops.io"
 
