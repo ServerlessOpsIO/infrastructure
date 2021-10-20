@@ -43,6 +43,16 @@ Resources:
     Properties:
       GroupName: DevAdmins
 
+  CICDUsers:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: CICDUsers
+
+  CICDAdmins:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: CICDAdmins
+
   ProdUsers:
     Type: "AWS::IAM::Group"
     Properties:

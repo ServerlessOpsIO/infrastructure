@@ -5,6 +5,7 @@ Resources:
     Properties:
       Groups:
         - PrimeAdmins
+        - CICDAdmins
         - DevAdmins
         - ProdAdmins
         - TrainingAdmins
@@ -17,6 +18,7 @@ Resources:
       Groups:
         - PrimePowerUsers
         - PrimeUsers
+        - CICDUsers
         - DevUsers
         - ProdUsers
       UserName: tom
