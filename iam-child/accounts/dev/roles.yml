@@ -49,6 +49,7 @@ Resources:
     Properties:
       RoleName:
         Fn::Sub: "${RoleNamePrefix}AccessUserRole"
+      MaxSessionDuration: 21600
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -146,6 +147,7 @@ Resources:
     Properties:
       RoleName:
         Fn::Sub: "${RoleNamePrefix}AccessAdminRole"
+      MaxSessionDuration: 21600
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
