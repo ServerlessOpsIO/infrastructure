@@ -58,7 +58,7 @@ Resources:
                 Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSLambda_ReadOnlyAccess
         - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
       Policies:
         - PolicyName: "IamRoleManage"
