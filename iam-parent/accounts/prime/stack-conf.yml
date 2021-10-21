@@ -24,6 +24,15 @@
       UsersGroupName: "ProdUsers"
       AdminsGroupName: "ProdAdmins"
 
+- id: AccessCICD
+  template: 'child-account-access.yml'
+  dependson: Groups
+  parameters:
+    - AccountName: "CICD"
+      AccountId: "346402060170"
+      UsersGroupName: "CICDUsers"
+      AdminsGroupName: "CICDAdmins"
+
 - id: AccessTraining
   template: 'child-account-access.yml'
   dependson: Groups

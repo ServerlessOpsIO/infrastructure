@@ -49,6 +49,7 @@ Resources:
     Properties:
       RoleName:
         Fn::Sub: "${RoleNamePrefix}AccessUserRole"
+      MaxSessionDuration: 21600
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -127,6 +128,18 @@ Resources:
                   - "kms:List*"
                   - "kms:Describe*"
                 Resource: "*"
+        - PolicyName: "ApiGateway"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "apigateway:DELETE"
+                  - "apigateway:GET"
+                  - "apigateway:PATCH"
+                  - "apigateway:POST"
+                  - "apigateway:PUT"
+                Resource: "*"
 
 
   OrganizationAccountAccessAdminRole:
@@ -134,6 +147,7 @@ Resources:
     Properties:
       RoleName:
         Fn::Sub: "${RoleNamePrefix}AccessAdminRole"
+      MaxSessionDuration: 21600
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:

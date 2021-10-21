@@ -1,0 +1,9 @@
+---
+- id: PrimeAccountRoles
+  template: 'roles.yml'
+  parameters:
+    - TrustedAccountId:
+        Ref: PrimeAccountId
+      RoleNamePrefix: "OrganizationAccount"
+      InitDeploy:
+        Ref: InitDeploy

@@ -78,6 +78,21 @@ Resources:
         - ns-667.awsdns-19.net
         - ns-151.awsdns-18.com
 
+  ServerlessOpsCICD:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Comment: "CICD domain delegation"
+      HostedZoneId:
+        Ref: ServerlessOps
+      Name: "cicd.serverlessops.io."
+      Type: "NS"
+      TTL: 86400
+      ResourceRecords:
+        - ns-1264.awsdns-30.org
+        - ns-261.awsdns-32.com
+        - ns-680.awsdns-21.net
+        - ns-1650.awsdns-14.co.uk
+
   ServerlessOpsTraining:
     Type: "AWS::Route53::RecordSet"
     Properties:
