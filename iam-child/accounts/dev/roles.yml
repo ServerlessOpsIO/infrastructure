@@ -54,14 +54,12 @@ Resources:
                 Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSAccountActivityAccess
         - arn:aws:iam::aws:policy/AWSAppSyncAdministrator
         - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
         - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
         - arn:aws:iam::aws:policy/AWSHealthFullAccess
         - arn:aws:iam::aws:policy/AWSLambdaFullAccess
-        - arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSSMFullAccess   # Grants cloudwatch too
       Policies:
         - PolicyName: "IamRoleManage"
@@ -86,6 +84,27 @@ Resources:
                   - "iam:DeleteRolePolicy"
                   - "iam:PutRolePolicy"
                   - "iam:DetachRolePolicy"
+                Resource: "*"
+        - PolicyName: "Account"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: "Account"
+                Effect: "Allow"
+                Action:
+                  - "account:Get*"
+                  - "account:List*"
+                Resource: "*"
+              - Sid: "AccountActivity"
+                Effect: "Allow"
+                Action:
+                  - "aws-portal:ViewBilling"
+                Resource: "*"
+              - Sid: "Organizations"
+                Effect: "Allow"
+                Action:
+                  - "organizations:Describe*"
+                  - "organizations:List*"
                 Resource: "*"
         - PolicyName: "AiMl"
           PolicyDocument:
