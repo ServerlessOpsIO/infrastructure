@@ -11,11 +11,6 @@ Parameters:
     Type: String
     Description: "Whether this is an initial deployment or not."
 
-  DeployRoleArn:
-    Type: AWS::SSM::Parameter::Value<String>
-    Description: "Deployment IAM role ARN"
-    Default: "/infra/deploy/prime/DeployRoleArn"
-
 
 Conditions:
   IsNotInitDeploy:
