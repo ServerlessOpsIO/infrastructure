@@ -72,6 +72,15 @@ Resources:
                 Action:
                   - "iam:PassRole"
                 Resource: "*"
+        - PolicyName: "Appsync"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "appsync:Get*"
+                  - "appsync:List*"
+                Resource: "*"
         - PolicyName: "Events"
           PolicyDocument:
             Version: "2012-10-17"

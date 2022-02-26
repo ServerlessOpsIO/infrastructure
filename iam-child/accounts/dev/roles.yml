@@ -55,6 +55,7 @@ Resources:
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSAccountActivityAccess
+        - arn:aws:iam::aws:policy/AWSAppSyncAdministrator
         - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
         - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
         - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
