@@ -62,6 +62,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSageMakerReadOnly
         - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
       Policies:
         - PolicyName: "IamRoleManage"
@@ -112,6 +113,29 @@ Resources:
                 Action:
                   - "kms:List*"
                   - "kms:Describe*"
+                Resource: "*"
+        - PolicyName: "MachineLearning"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "machinelearning:Describe*"
+                  - "machinelearning:Get*"
+                Resource: "*"
+        - PolicyName: "Rekognition"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "rekognition:Compare*"
+                  - "rekognition:Describe*"
+                  - "rekognition:Detect*"
+                  - "rekognition:Get*"
+                  - "rekognition:List*"
+                  - "rekognition:Recognize*"
+                  - "rekognition:Search*"
                 Resource: "*"
         - PolicyName: "SNS"
           PolicyDocument:
