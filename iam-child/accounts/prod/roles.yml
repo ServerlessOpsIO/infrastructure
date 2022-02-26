@@ -54,8 +54,15 @@ Resources:
                 Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambda_ReadOnlyAccess
-        - arn:aws:iam::aws:policy/AWSXrayReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSAccountActivityAccess
+        - arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSHealthFullAccess
+        - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
@@ -65,12 +72,15 @@ Resources:
                 Action:
                   - "iam:PassRole"
                 Resource: "*"
-        - PolicyName: "CloudFormationFullAccess"
+        - PolicyName: "Events"
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: "Allow"
-                Action: "CloudFormation:*"
+                Action:
+                  - "events:Describe*"
+                  - "events:List*"
+                  - "events:Test*"
                 Resource: "*"
         - PolicyName: "KmsRead"
           PolicyDocument:
@@ -80,6 +90,34 @@ Resources:
                 Action:
                   - "kms:List*"
                   - "kms:Describe*"
+                Resource: "*"
+        - PolicyName: "SNS"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "sns:Get*"
+                  - "sns:List*"
+                Resource: "*"
+        - PolicyName: "SQS"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "sqs:Get*"
+                  - "sqs:List*"
+                Resource: "*"
+        - PolicyName: "XRay"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "xray:Get*"
+                  - "xray:BatchGet*"
+                  - "xray:List*"
                 Resource: "*"
 
   OrganizationAccountAccessAdminRole:
