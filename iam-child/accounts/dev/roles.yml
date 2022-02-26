@@ -171,6 +171,13 @@ Resources:
               - Effect: "Allow"
                 Action: "sqs:*"
                 Resource: "*"
+        - PolicyName: "States"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "states:*"
+                Resource: "*"
         - PolicyName: "XRay"
           PolicyDocument:
             Version: "2012-10-17"

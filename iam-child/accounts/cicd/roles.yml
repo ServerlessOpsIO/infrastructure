@@ -87,6 +87,27 @@ Resources:
                   - "kms:List*"
                   - "kms:Describe*"
                 Resource: "*"
+        - PolicyName: "StepFunctions"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "kms:Get*"
+                  - "kms:Describe*"
+                  - "kms:List*"
+                Resource: "*"
+        - PolicyName: "XRay"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "xray:Get*"
+                  - "xray:BatchGet*"
+                  - "xray:List*"
+                Resource: "*"
+
 
   OrganizationAccountAccessAdminRole:
     Type: "AWS::IAM::Role"
