@@ -81,6 +81,19 @@ Resources:
                   - "appsync:Get*"
                   - "appsync:List*"
                 Resource: "*"
+        - PolicyName: "CloudFormation"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "cloudformation:Describe*"
+                  - "cloudformation:EstimateTemplateCost"
+                  - "cloudformation:Get*"
+                  - "cloudformation:List*"
+                  - "cloudformation:ValidateTemplate"
+                  - "cloudformation:Detect*"
+                Resource: "*"
         - PolicyName: "Events"
           PolicyDocument:
             Version: "2012-10-17"
