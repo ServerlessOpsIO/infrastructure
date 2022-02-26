@@ -85,7 +85,27 @@ Resources:
                   - "iam:PutRolePolicy"
                   - "iam:DetachRolePolicy"
                 Resource: "*"
-
+        - PolicyName: "ApiGateway"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "apigateway:DELETE"
+                  - "apigateway:GET"
+                  - "apigateway:PATCH"
+                  - "apigateway:POST"
+                  - "apigateway:PUT"
+                Resource: "*"
+        - PolicyName: "KmsRead"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "kms:List*"
+                  - "kms:Describe*"
+                Resource: "*"
         - PolicyName: "CloudFormationFullAccess"
           PolicyDocument:
             Version: "2012-10-17"
@@ -118,27 +138,6 @@ Resources:
                   - "route53:GetHealthCheckCount"
                   - "route53:GetHealthCheckStatus"
                   - "route53:GetHealthCheckLastFailureReason"
-                Resource: "*"
-        - PolicyName: "KmsRead"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action:
-                  - "kms:List*"
-                  - "kms:Describe*"
-                Resource: "*"
-        - PolicyName: "ApiGateway"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action:
-                  - "apigateway:DELETE"
-                  - "apigateway:GET"
-                  - "apigateway:PATCH"
-                  - "apigateway:POST"
-                  - "apigateway:PUT"
                 Resource: "*"
 
 
