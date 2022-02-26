@@ -54,12 +54,10 @@ Resources:
                 Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSAccountActivityAccess
         - arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
         - arn:aws:iam::aws:policy/AWSHealthFullAccess
         - arn:aws:iam::aws:policy/IAMReadOnlyAccess
-        - arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
         - arn:aws:iam::aws:policy/AmazonSageMakerReadOnly
@@ -72,6 +70,27 @@ Resources:
               - Effect: "Allow"
                 Action:
                   - "iam:PassRole"
+                Resource: "*"
+        - PolicyName: "Account"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: "Account"
+                Effect: "Allow"
+                Action:
+                  - "account:Get*"
+                  - "account:List*"
+                Resource: "*"
+              - Sid: "AccountActivity"
+                Effect: "Allow"
+                Action:
+                  - "aws-portal:ViewBilling"
+                Resource: "*"
+              - Sid: "Organizations"
+                Effect: "Allow"
+                Action:
+                  - "organizations:Describe*"
+                  - "organizations:List*"
                 Resource: "*"
         - PolicyName: "Appsync"
           PolicyDocument:
