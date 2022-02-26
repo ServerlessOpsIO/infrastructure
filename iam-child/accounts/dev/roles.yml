@@ -59,16 +59,14 @@ Resources:
                 Fn::Sub: "arn:aws:iam::${TrustedAccountId}:root"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSAccountActivityAccess
+        - arn:aws:iam::aws:policy/AmazonCognitoPowerUser
+        - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/AWSHealthFullAccess
         - arn:aws:iam::aws:policy/AWSLambdaFullAccess
-        - arn:aws:iam::aws:policy/AmazonCognitoReadOnly
-        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
-        - arn:aws:iam::aws:policy/CloudWatchLogsReadOnlyAccess
-        - arn:aws:iam::aws:policy/IAMReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonSQSReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
-        - arn:aws:iam::aws:policy/AutoScalingReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess   # Grants cloudwatch too
       Policies:
         - PolicyName: "IamRoleManage"
           PolicyDocument:
@@ -76,14 +74,32 @@ Resources:
             Statement:
               - Effect: "Allow"
                 Action:
+                  - "iam:GenerateCredentialReport"
+                  - "iam:GenerateServiceLastAccessedDetails"
+                  - "iam:Get*"
+                  - "iam:List*"
+                  - "iam:SimulateCustomPolicy"
+                  - "iam:SimulatePrincipalPolicy"
+                  - "iam:PassRole"
+                  # These are more dangerous but needed for console based
+                  # permission debugging.
                   - "iam:AttachRolePolicy"
                   - "iam:CreatePolicy"
                   - "iam:CreateRole"
                   - "iam:DeleteRole"
                   - "iam:DeleteRolePolicy"
-                  - "iam:PassRole"
                   - "iam:PutRolePolicy"
                   - "iam:DetachRolePolicy"
+                Resource: "*"
+        - PolicyName: "AiMl"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "machinelearning:*"
+                  - "rekognition:*"
+                  - "sagemaker:*"
                 Resource: "*"
         - PolicyName: "ApiGateway"
           PolicyDocument:
@@ -97,6 +113,20 @@ Resources:
                   - "apigateway:POST"
                   - "apigateway:PUT"
                 Resource: "*"
+        - PolicyName: "CloudFormationFullAccess"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "CloudFormation:*"
+                Resource: "*"
+        - PolicyName: "Events"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "events:*"
+                Resource: "*"
         - PolicyName: "KmsRead"
           PolicyDocument:
             Version: "2012-10-17"
@@ -105,13 +135,6 @@ Resources:
                 Action:
                   - "kms:List*"
                   - "kms:Describe*"
-                Resource: "*"
-        - PolicyName: "CloudFormationFullAccess"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action: "CloudFormation:*"
                 Resource: "*"
         - PolicyName: "Route53Zones"
           PolicyDocument:
@@ -138,6 +161,36 @@ Resources:
                   - "route53:GetHealthCheckCount"
                   - "route53:GetHealthCheckStatus"
                   - "route53:GetHealthCheckLastFailureReason"
+                Resource: "*"
+        - PolicyName: "S3"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:*"
+                  - "s3-object-lambda:*"
+                Resource: "*"
+        - PolicyName: "SNS"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "sns:*"
+                Resource: "*"
+        - PolicyName: "SQS"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "sqs:*"
+                Resource: "*"
+        - PolicyName: "XRay"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "xray:*"
                 Resource: "*"
 
 
