@@ -108,6 +108,16 @@ Resources:
                   - "kms:List*"
                   - "kms:Describe*"
                 Resource: "*"
+        - PolicyName: "CodeStar"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "codestar:*"
+                  - "codestar-connections:*"
+                  - "codestar-notifications:*"
+                Resource: "*"
         - PolicyName: "StepFunctions"
           PolicyDocument:
             Version: "2012-10-17"
