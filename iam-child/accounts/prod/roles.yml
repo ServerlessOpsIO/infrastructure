@@ -124,6 +124,12 @@ Resources:
                   - "events:List*"
                   - "events:Test*"
                 Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "schemas:Describe*"
+                  - "schemas:Get*"
+                  - "schemas:List*"
+                Resource: "*"
         - PolicyName: "KmsRead"
           PolicyDocument:
             Version: "2012-10-17"
